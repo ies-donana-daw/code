@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1A03</title>
+</head>
+<body>
+    <p id="texto"></p>
+
+   <button id="esp" onclick="saluda('Bienvenido')">Español</button>
+   <button id="rus" onclick="saluda('Bienvenue')">Francés</button>
+   <button id="eng" onclick="saluda('Welcome')"> Inglés </button>
+    
+    <script>
+        function saluda(msg){
+            var texto = document.getElementById('texto');
+            texto.innerHTML = msg;
+        }
+    </script>
+</body>
+</html>
