@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>marco2</title>
+</head>
+
+    <body>
+        <form> <input type="Button" value="Cambiar Color" onclick=" colores()"> </form>
+
+
+            <script>
+
+                var miColor=3;
+                function colores(){
+
+                campoColor = parent.marco1.document.form1.color; 
+
+                    if(campoColor.selectedIndex==0){
+                        colorin = 'green';
+                    }else{
+                        colorin = 'blue';
+                    } 
+                    campoFrame = parent.marco1.document.form1.marcos;
+                    
+                    if(campoFrame.selectedIndex==0){ 
+                        window.parent.marco1.document.bgColor = colorin; 
+                    }else{ 
+                        window.parent.marco2.document.bgColor = colorin;
+                    }
+                }
+            </script>
+    </body>
+</html>

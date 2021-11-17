@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3A06</title>
+</head>
+
+    <body>
+
+        <h1>El BOM</h1>
+        <h2>El objeto Window</h2>
+
+        <p id="parrafo"></p>
+
+        <!-- <iframe id="fr1" src="./objetoWindow2.html" width="40%" height="150"></iframe> -->
+        <iframe id="fr1" src="https://html.spec.whatwg.org/multipage/window-object.html" width="40%" height="150"></iframe>
+        <iframe src="https://wikipedia.com" width="40%" height="150"></iframe>
+
+        <p id="ifr"></p>
+
+        <button id="boton1" onclick="crearVentana()">Crear Ventana</button>
+        <button id="boton2" onclick="cerrarVentana()">Cerrar Ventana</button>
+        <button id="boton3" onclick="redimensionarVentana()">Resize Ventana</button>
+        <button id="boton4" onclick="moverVentana()">Mover Ventana</button>
+        <button id="boton5" onclick="retardoVentana()">Alert 3s</button>
+        <button id="boton6" onclick="quitarRetardo()">Clear Retardo</button>
+        <button id="boton7" onclick="intervaloReloj()">Intervalo</button>
+        <button id="boton8" onclick="quitarIntervalo()">Clear Int</button>
+
+        <a href="http://google.com" target="_blank" onclick="window.open(this.href,this.target,'width=400,height=250,top=120,left=100,toolbar=yes,location=yes,scrollbar=no,menubar=yes');return false;">Mi popup bien hecho</a>
+
+        <p id = "ventanas"></p>
+      
+        <p id = "reloj"></p>
+
+        <script>
+      
+         //PROPIEDADES BÁSICAS DEL OBJETO WINDOW    
+        
+            objWindow();            //Llamo a la función antes para que muestre info antes de evento
+
+            function objWindow() { 
+
+                let cadena = "";
+                               
+                //Nombre de la ventana
+                window.name = "Mi Ventana";
+                cadena += "<br/> Nombre: " + window.name;
+
+                //Tamaño de la ventana con toolbar y scrollbar
+                cadena += "<br/> Alto externo: " +  window.outerHeight;
+                cadena += " Ancho externo: " + window.outerWidth;
+
+                //Tamaño de la ventana con toolbar y scrollbar
+                cadena += "<br/> Alto interno: " +  window.innerHeight;
+                cadena += " Ancho interno: " + window.innerWidth;
+                
+                //Posición del scroll. Devuelve el número de pixeles donde se encuentre
+                cadena += "<br/> Scroll horizontal: " +  window.scrollX;    //window.pageXOffset
+                cadena += " Scroll vertical: " +    window.scrollY;    //window.pageYOffset
+
+                //Distancia de la esquina superior izquierda
+                cadena += "<br/> Distancia desde la izquierda: " +  window.screenX;    //window.screenLeft  Ojo compatibilidad navegadores
+                cadena += " Distancia desde arriba: " +        window.screenY;    //window.screenTop
+
+                //OBJETO SCREEN
+                //cadena += "<br>Altura total Screen: " + screen.height;
+                //cadena +=" Altura disponible Screen: " + screen.availHeight;
+                
+                //cadena += ("<br>Anchura total Screen: " + screen.width); 
+                //cadena += (" Anchura disponible Screen: " + screen.availWidth); 
+                
+                //cadena += ("<br>Profundidad de color: "+ screen.colorDepth);
+
+                document.getElementById("parrafo").innerHTML = cadena;
+            }
+
+            window.onresize = objWindow; //Segunda forma que hemos visto de incluir eventos. Con esta linea de código se llamará a la función objWindow cada vez que se cambie el tamaño de la página principal
+
+           
+            
+        //  PROPIEDADES DE IFRAMES
+            let cad2="";
+            cad2 += "<br/>El número de frames de la página es "+ window.frames.length; 
+            cad2 += "<br/>La página actual no está insertada en un frame. frameElement devuelve:  "+ window.frameElement; 
+            cad2 += "<br/>El src del iframe1 insertado en la página principal:  "+ window.frames[0].frameElement.src;
+            cad2 += "<br/>El src del iframe2 insertado en la página principal:  "+ window.frames[1].frameElement.src;
+            cad2 += "<br/>El width del iframe1 insertado en la página principal:  "+ window.frames[0].frameElement.width;
+            //cad2 += "<br/>El width del iframe1 insertado en la página principal:  "+ document.getElementById("fr1").width;//Distintas formas de seleccionar elementos
+            cad2 += "<br/>El src del iframe2 insertado en la página principal:  "+ window.frames[1].frameElement.src;
+            //cad2 += "<br/>El iframe2 insertado en la página principal esta cerrado?:  "+ window.frames[1].closed;
+            //cad2 += "<br/>El padre del iframe2:  "+ window.frames[1].parent.name;
+            //window.frames[1].parent.close(); //Cierra la ventana que la contiene
+            
+            document.getElementById("ifr").innerHTML = cad2;
+
+        //METODOS DEL OBJETO WINDOW Y PROPIEDADES DE OTRAS VENTANAS
+
+            let ventanaNueva;
+
+            function crearVentana(){
+                //ventanaNueva = window.open("", "_blank", "location=no"); //Nueva pestaña
+                //ventanaNueva = window.open("http://google.com", "_blank"); //Nueva pestaña
+                //ventanaNueva = window.open("http://google.com", "_parent"); //Sustituye a la página padre
+                //ventanaNueva = window.open("http://google.com", "_self"); //Se recarga en sí misma
+                //ventanaNueva = window.open("http://google.com", "_top"); //
+                //ventanaNueva = window.open("", "_blank"); //Nueva pestaña
+                ventanaNueva = window.open("http://google.com", "_blank", "width=600,height=300,resizable=no,scrollbars=no,toolbar=true"); //Nueva ventana
+                //ventanaNueva.menubar.visible=true;
+
+                //ventanaNueva.document.write("<head><title>Mi página</title>");
+                //ventanaNueva.document.write("<body><button id='bot' onclick='window.opener.name=\"Nombre Cambiado\";'>Pulsa</button></body>");
+
+                let cad3 = "";
+                cad3 += "<br/> El padre de la nueva ventana abierta es: " + ventanaNueva.parent.name;
+                cad3 += "<br/>El padre del iframe2 es:  "+ window.frames[1].parent.name;
+                cad3 += "<br/> El opener de la nueva ventana abierta es: " + ventanaNueva.opener.name;
+                cad3 += "<br/> La ventana nueva está cerrada: " + ventanaNueva.closed;
+                
+                document.getElementById("ventanas").innerHTML = cad3;
+            }
+
+            function cerrarVentana(){
+                ventanaNueva.close();
+                let cad4 = "<br/> La ventana nueva está cerrada: " + ventanaNueva.closed;
+                document.getElementById("ventanas").innerHTML += cad4;
+            }
+
+
+            function redimensionarVentana(){
+                ventanaNueva.focus();
+                ventanaNueva.resizeBy(10, 10); //resizeTo
+            }
+
+            function moverVentana(){
+                ventanaNueva.focus();
+                ventanaNueva.moveBy(10, 10); //moveTo
+            }
+
+        //MÉTODOS DE INSTRUCCIONES DE TIEMPO    
+
+            function saludo(){
+                alert("Hola");
+            }
+
+            let time;
+            
+            function retardoVentana(){
+                time = window.setTimeout(saludo, 3000);
+            }
+
+            function quitarRetardo(){
+                window.clearTimeout(time);
+            }
+
+            let relojPeriodico;
+
+            function reloj(){
+                let clk = new Date();
+                document.getElementById("reloj").innerHTML = "Hora: " + clk.getHours() + ":" + clk.getMinutes() + ":" + ((clk.getSeconds()<"10")?"0"+clk.getSeconds():clk.getSeconds());
+            }
+
+            function intervaloReloj(){
+                relojPeriodico = setInterval(reloj, 1000);
+            }
+
+            function quitarIntervalo(){
+                window.clearInterval(relojPeriodico);
+            }
+
+        </script>
+
+    </body>
+     
+</html>

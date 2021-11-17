@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3A07</title>
+</head>
+
+    <body>
+    
+        <script>
+        // <!--
+        document.write("<h4>Valores de las propiedades del objeto Navigator</h4>\n");
+        document.write("<ol>");
+
+        for ( let prop in navigator ) {
+            document.write("<li>" + prop + ": " + navigator[prop] + "\n");
+        
+                if ( prop=="plugins" ) {
+                    
+                    for ( let i=0; i<navigator.plugins.length; i++ ) {
+                        document.write("<br>Plug-in numero "+i+"<ul>\n"); 
+                            for ( let prop in navigator.plugins[i] ) {
+                                document.write("<li>" + prop + ": " + navigator.plugins[i][prop]+"</li>\n"); //Ojo a cómo se accede a la propiedad [prop]
+                            }                                                                                // es lo mismo: navigator.plugins[0]["name"]
+                        document.write("</ul>\n");                                                           //         que: navigator.plugins[0].name    
+                    }
+                } // if prop==plugins
+            
+                if ( prop=="mimeTypes" ) {
+                    
+                    for ( let i=0; i<navigator.mimeTypes.length; i++ ) {
+                        document.write("<br> Tipo MIME numero " + i + "<ul>\n"); 
+                            for ( let prop in navigator.mimeTypes[i] ) {
+                                document.write("<li>" + prop + " " + navigator.mimeTypes[i][prop] + "</li>\n");
+                            }
+                        document.write("</ul>\n");
+                    }
+                } // if prop==mimeTypes
+            
+            document.write("</li>\n");
+        } // for prop in navigator
+        
+        document.write("</ol>")
+        // -->
+        
+        </script>
+
+    </body>
+</html
+>
