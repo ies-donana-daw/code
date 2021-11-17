@@ -12,7 +12,18 @@
         vaya haciendo clic sobre las imágenes, la secuencia irá reproduciendose. 
     </p>
 
+    <img id="imagen" src="./img/1.jpg" alt="Imágenes de informática" title="informática" onclick="cambiarImagen()">
 
+    <script>
+        function cambiarImagen(){
+            let ruta = document.getElementById("imagen").src;
+            let numFoto = ruta[ruta.length-5];
+            console.log("La foto anterior era ", numFoto);
+            numFoto != 5 ? document.getElementById("imagen").src = `./img/${parseInt(numFoto) + 1}.jpg` : document.getElementById("imagen").src = `./img/1.jpg`;
+       
+        }
+
+    </script>
     
 </body>
 </html>
