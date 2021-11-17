@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>u2e2_cadenasp</title>
+</head>
+<body>
+    <p>
+        EJERCICIO: u2e2_cadenas
+        Crea un programa en el que crees 4 variables, 2 cadenas y 2 números,  con los siguientes valores: tu nombre, tu apellido, tu edad y tu año de nacimiento.<br>
+        
+        Muestra en un alert una frase que incluya comillas simples.<br>
+        Muestra en un alert tu nombre y apellidos separados por un salto de línea.<br>
+        Muestra en un alert la suma de las variables edad y año de nacimiento.<br>
+        Muestra en un alert la suma de todas las variables.<br>
+        Comenta el código con los comentarios que estimes necesarios.<br>
+    </p>
+    <script>
+        //Creamos las variables
+        const miNombre = "Damián";
+        const miApellido = "León";
+        const edad = 43;
+        const aNacim = 1978;
+
+        //Mostramos la info con los alerts
+        alert("Hola a 'Todos'");//No hace falta escapar las comillas simples, puesto que están dentro de unas dobles
+        alert(`Soy ${miNombre} \n ${miApellido}`);//Usamos template literals
+        alert (`Mi año ${aNacim} más mi edad ${edad} es ${aNacim + edad}, el año actual`);
+        alert (`Si sumamos todas las variables ${miNombre + miApellido + edad + aNacim}, se concatenarán`);
+    </script>
+</body>
+</html>

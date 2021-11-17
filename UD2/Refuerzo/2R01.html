@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2R01</title>
+</head>
+<body>
+
+    <p>
+        1. Escribe una sentencia if...else que a partir de un valor recibido por el usuario: <br>
+           • muestre "even" si el número es par <br>
+           • muestre "odd" si el número es impar <br>
+           o Sugerencia: Usa el operador módulo <br>
+    </p>
+
+    <script>
+        let numero;
+        
+        function peticion () {
+            numero = parseInt(prompt("Por favor, introduce  un número:", ""));
+                if (isNaN(numero)) {
+                    peticion()
+                }
+        }
+
+        peticion();
+        console.log(numero);
+        (numero % 2 === 0) ? console.log("even") : console.log("odd");
+
+    </script>
+</body>
+</html>

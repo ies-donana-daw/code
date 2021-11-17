@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2R05</title>
+</head>
+<body>
+    <p>
+        5. Realiza un script que muestre los dígitos que componen un número introducido por el usuario. Este debe ser menor de 1000. <br>
+         Haz 3 versiones usando for, for...in y for...of 
+    </p>
+    
+    <button id="bfor" onclick=conFor()>Con for</button>
+    <button id="bforin" onclick=conForIn()>Con for in</button>
+    <button id="bforof" onclick=conForOf()>Con for of</button>
+
+    <script>
+        function validarNumero(){
+            let numero = (prompt("Introduce un número menor de 1000 para mostrar sus dígitos:"));
+            while (isNaN(numero) || numero > 1000){ //Aunque numero sea string al comprobar si es NaN y mayor de 1000 se comporta como número
+                numero = (prompt("Por favor, introduce un número menor de 1000 para mostrar sus dígitos:"));
+            }
+            return numero;
+        }
+
+        function conFor(){
+            let numero = validarNumero();
+            for (let i = 0; i < numero.length; i++) {
+                alert(numero.charAt(i))
+            }
+        }
+
+        function conForIn(){
+            let numero = validarNumero();
+            for (let indice in numero) {
+                alert(numero[indice]) //también valdría usar numero.charAt(indice)
+            }
+        }
+
+        function conForOf(){
+            let numero = validarNumero();
+            for (let digito of numero) {
+                alert(digito) 
+            }
+        }
+    </script>
+</body>
+</html>

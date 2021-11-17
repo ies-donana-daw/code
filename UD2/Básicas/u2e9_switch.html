@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>u2e9_switch</title>
+</head>
+<body>
+    <p>
+        EJERCICIO: u2e9_switch <br>
+        Modifica el programa u2e4_ifelse para que realice la misma operación pero utilizando un switch <br>
+    </p>
+
+    <p>
+        EJERCICIO: u2e4_ifelse<br>
+        Crea un programa que pida al usuario que introduzca una edad y muestre el siguiente mensaje en función del número introducido:<br>
+
+
+        0-12: Niño<br>
+        13-26: Joven<br>
+        26-60: Adulto<br>
+        >60: Jubilado<br><br>
+        Para guardar un valor del usuario utilizamos el siguiente código:<br>
+
+        var respuesta = prompt (“Mensaje”);<br>
+        También comprobará que no se meta un número menor de 0. Comenta el código con los comentarios que estimes necesarios.<br>
+    </p>
+    <p id="parrafo"></p>
+    <script>
+        let respuesta = " ", mensaje;
+       
+       while (isNaN(respuesta) || respuesta.includes(" ") || respuesta =="" || respuesta < 0) {
+           //Variable para alojar el dato introducido por el usuario
+           respuesta = prompt ("Por favor, introduzca su edad con números");
+       }
+
+       console.log(respuesta);
+
+       switch (true) {
+            case (respuesta < 12):  //No compruebo que sea menor que 0 porque lo he hecho ya en el while
+                    mensaje = "0-12: Niño";
+                    break; 
+            case (respuesta < 26):
+                    mensaje = "13-25: Joven";
+                    break;
+            case (respuesta < 60):
+                    mensaje = "26-59: Adulto";
+                    break;
+            default:
+                    mensaje = ">60: Jubilado"
+                    break;
+       }
+
+       document.getElementById("parrafo").innerText = mensaje;
+
+    </script>
+</body>
+</html>

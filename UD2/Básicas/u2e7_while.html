@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>u2e7_while</title>
+</head>
+<body>
+    <p>
+        EJERCICIO: u2e7_while <br>
+        Crea un control parental para que no se pueda entrar en una página. <br>
+
+        Se pedirá al usuario que escriba el apellido del primer presidente de la democracia (si no sabes quién fue, busca en Google ;) <br>
+
+        Para guardar un valor del usuario utilizamos el siguiente código: <br>
+
+        var respuesta = prompt (“Mensaje”); <br>
+
+        Mientras el usuario no introduzca el valor correcto, el mensaje seguirá saliendo. <br>
+
+        Comenta el código con los comentarios que estimes necesarios.
+    </p>
+
+    <script>
+        let respuesta;
+        while (respuesta != "Suárez"){
+            respuesta = prompt("Por favor, introduce el apellido del primer presidente democrático:")
+            if (respuesta == "Suarez"){
+                respuesta = prompt("Por favor, ten en cuenta las tildes:")
+            }
+        }
+        alert("Enhorabuena el primer presidente fue "+respuesta);
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2R02</title>
+</head>
+<body>
+    
+        <p>
+            2. Los grupos musicales reciben un nombre en función del número de componentes. <br>
+            Realiza una serie de sentencias condicionales que: <br>
+            • muestre "not a group" si musicians es menor o igual que O <br>
+            • muestre "solo" si rnusicians es igual 1 <br>
+            • muestre "duet" si rnusicians es igual a 2 <br>
+            • muestre "trio" si rnusicians es igual a 3 <br>
+            • muestre "quartet" si rnusicians es igual a 4 <br>
+            • muestre "thes es a large group" si rnusicians es mayor que 4 <br>
+
+        </p>
+        <script>
+            
+           let musicians;
+            
+           function peticion () {
+                
+                musicians = parseInt(prompt("Introduce el número de miembros:", 0));
+               
+                if (isNaN(musicians)) {
+                    peticion()
+                }
+            }
+
+            peticion();
+
+            /*
+            if (musicians <= 0) {
+                console.log("not a group");
+            } else if (musicians == 1) {   //ojo si es comparador estricto no funcionaría 
+                console.log("solo");
+            } else if (musicians == 2) {
+                console.log("duet");
+            } else if (musicians == 3) {
+                console.log("trio");
+            } else if (musicians == 4) {
+                console.log("quartet");
+            } else if (musicians >= 5) {
+                console.log("this is a large group");
+            }
+            */  
+
+            /*
+            
+            switch (musicians) {
+
+
+                case (0): console.log("not a group");
+                    break;
+                case (1): console.log("solo");
+                    break;
+                case (2): console.log("duet");
+                    break;
+                case (3): console.log("trio");
+                    break;
+                case (4): console.log("quartet");
+                    break;
+                case (5): console.log("this is a large group");
+                    break;
+                default: console.log("this is a large group");
+                //Fallaría números negativos
+
+            }
+            
+             */   
+
+            
+            switch (true) {
+
+                case (musicians <= 0): console.log("not a group");
+                    break;
+                case (musicians == 1): console.log("solo");
+                    break;
+                case (musicians == 2): console.log("duet");
+                    break;
+                case (musicians == 3): console.log("trio");
+                    break;
+                case (musicians == 4): console.log("quartet");
+                    break;
+                case (musicians == 5): console.log("this is a large group");
+                    break;
+                default: console.log("this is a large group");
+
+            }
+            
+             
+
+        </script>
+</body>
+</html>

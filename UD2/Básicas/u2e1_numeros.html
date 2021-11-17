@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>u2e1_numeros</title>
+</head>
+<body>
+    <p>
+        EJERCICIO: u2e1_numeros
+        Crea un programa en el que crees 5 variables numéricas (entero, decimal, científico, octal y hexadecimal).<br>
+        
+        A las variables les asignarás los siguientes números: 1357, 135.7, 135e7, 01357 y 0x1357.<br>
+        
+        Muestra con 5 alerts su valor, escribiendo la siguiente sentencia:<br>
+        
+            alert (“Número entero” + entero);<br>
+        
+        Comenta el código con los comentarios que estimes necesarios.<br>
+    </p>
+    <script>
+
+        //Creamos las variables
+        let numEntero = 1357;
+        let numDecimal = 135.7;
+        let numCientifico = 135e7;
+        let numOctal = 01357;
+        let numHexadecimal = 0x1357;
+
+        //Uso un objeto como estructura de datos para reutilizar el alert en el for y no tener que escribir 5 alerts distintos
+        let arrayNumeros = {entero: numEntero, decimal: numDecimal, científico: numCientifico, octal: numOctal, hexadecimal: numHexadecimal};
+
+        for (let numero in arrayNumeros) {
+            alert(`Número ${numero}: ${arrayNumeros[numero]}`);
+        }
+
+    </script>
+    
+</body>
+</html>

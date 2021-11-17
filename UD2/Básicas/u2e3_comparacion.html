@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>u2e3_comparacion</title>
+</head>
+<body>
+    <p>
+        EJERCICIO: u2e3_comparacion<br>
+        Crea un programa en el que muestres el resultado de varias operaciones mediante alert, mostrando el texto exacto de la operación realizada y su resultado.<br><br>
+
+        Ej:<br>
+
+        var operacion1 = (10 == 10);<br>
+        alert (“La operación 10==10 es”+operacion1<br>
+        Las operaciones a realizar son:<br><br>
+
+        10 == 10<br>
+        10 === 10<br>
+        10 === 10.0<br>
+        “Laura” == “laura”<br>
+        “Laura” > “laura”<br>
+        “Laura” < “laura”<br>
+        “123” == 123<br>
+        “123” === 123<br>
+        parseInt(“123”) === 123<br>
+        Comenta el código con los comentarios que estimes necesarios. <br>
+    </p>
+    <script>
+        
+        //Creamos este objeto para simplicar la creación del texto a mostrar
+        let operaciones = {
+            "10 == 10": 10 == 10,
+            "10 === 10": 10 === 10,
+            "10 === 10.0": 10 === 10.0,
+            "'Laura' == 'laura'": "Laura" == "laura",
+            "'Laura' > 'laura'": 'Laura' > 'laura',
+            "'Laura' < 'laura'": 'Laura' < 'laura',
+            "'123' == 123": "123" == 123,
+            "'123' === 123": "123" === 123,
+            "parseInt('123') === 123": parseInt("123") === 123
+        };
+
+        let cadena = '';
+
+        for (let oper in operaciones) {
+                cadena += `La operación ${oper} da como resultado ${operaciones[oper]}\n `
+            }
+
+        alert(cadena);
+    </script>
+</body>
+</html>

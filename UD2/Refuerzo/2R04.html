@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2R04</title>
+</head>
+
+<body>
+    <p>
+        4. Escribe un bucle while que:
+        <ul>
+            <li>Recorra del 1 al 20</li>
+            <li>Si el número es divisible por 3 que muestre "Divisible por 3"</li>
+            <li>Si el número es divisible por 5 que muestre "Divisible por 5"</li>
+            <li>Si es divisible por 3 y 5 que muestre "Divisible por 3 y 5"</li>
+            <li>Si no es dividible ni por 3 ni por 5 que muestre el número</li>
+        </ul>
+
+    </p>
+
+    <script>
+
+    let x = 1;
+    
+    while (x <= 20) {
+
+        if (x % 3 === 0 && x % 5 === 0) {
+            console.log("Divisible por 3 y 5");
+        }else if (x % 5 === 0) {
+            console.log("Divisible por 5");
+        }else if (x % 3 === 0) {
+            console.log("Divisible por 3");
+        }
+        else {
+            console.log(x);
+        }
+        
+        x++; 
+    }
+    </script>
+
+ 
+</body>
+</html>

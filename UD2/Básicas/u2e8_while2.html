@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>u2e8_while2</title>
+</head>
+<body>
+    <p>
+        EJERCICIO: u2e8_while2 <br>
+        Modifica el ejercicio anterior de la siguiente forma: <br>
+
+        En primer lugar, se carga un prompt donde pregunta: “¿Cuál fue el primer presidente de la democracia española?” <br>
+        En caso de que el usuario introduzca mal nombre y apellido, muestre como mensaje: “ERROR. Inténtelo de nuevo. ¿Cuál fue el primer presidente de la democracia española?” <br>
+        En caso de que el usuario introduzca el nombre del presidente (solamente) el prompt muestre como mensaje “Te falta el apellido. ¿Cuál fue el primer presidente de la democracia española?”. <br>
+        En caso de que el usuario introduzca el apellido del presidente (solamente) el prompt muestre como mensaje “Te falta el nombre. ¿Cuál fue el primer presidente de la democracia española?”. <br>
+        Comenta el código con los comentarios que estimes necesarios.
+    </p>
+    <script>
+        let respuesta = prompt("¿Cuál fue el primer presidente de la democracia española?");
+
+        while (respuesta != "Adolfo Suárez"){
+           
+                switch (respuesta) {
+                    case "Adolfo Suarez": 
+                            respuesta = prompt("Por favor, ten en cuenta las tildes:"); 
+                            break;
+                    case "Adolfo": 
+                            respuesta = prompt("Te falta el apellido. ¿Cuál fue el primer presidente de la democracia española?"); 
+                            break;
+                    case "Suárez": 
+                            respuesta = prompt("Te falta el nombre. ¿Cuál fue el primer presidente de la democracia española?"); 
+                            break;
+                    default: 
+                            respuesta  = prompt ("ERROR. Inténtelo de nuevo. ¿Cuál fue el primer presidente de la democracia española?");
+                            break;
+
+                }
+        }
+        alert("Enhorabuena el primer presidente fue "+respuesta);
+    </script>
+
+</body>
+</html>

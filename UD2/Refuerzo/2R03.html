@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2R03</title>
+</head>
+<body>
+    <p>
+        3. Uno de los asistentes a una fiesta está interpretando en secreto y sin saberlo a un
+        asesino, y los demás asistentes deben determinar quién de ellos es el asesino.  <br>
+        
+        En este misterio de asesinato hay: <br>
+        <ul>
+        <li>Cuatro salas: el salón de baile, la galería, la sala de billar y el comedor </li>
+        <li>Cuatro armas: veneno, un trofeo, un palo de billar y un cuchillo</li> 
+        <li>Cuatro sospechosos: Sr. Parkes, Sra. Van Cleve, Sra. Sparr y Sr. Kalehoff</li>
+        </ul>
+
+        También sabemos que cada arma corresponde a una habitación en particular, así
+        que: <br>
+        <ul>
+            <li> el veneno pertenece al salón de baile</li> 
+            <li> el trofeo pertenece a la galería</li> 
+            <li> el palo de billar pertenece a la sala de billar</li>
+            <li>y el cuchillo pertenece al comedor.</li>
+        </ul>
+        Y sabemos que cada sospechoso estaba ubicado en una habitación específica en el
+        momento del asesinato: <br>
+        <ul>
+            <li>El Sr. Parkes estaba ubicado en el comedor. </li>
+            <li>La Sra. Van Cleve estaba ubicada en la galería. </li>
+            <li>La Sra. Sparr estaba ubicada en la sala de billar. </li>
+            <li>El Sr. Kalehoff estaba ubicado en el salón de baile. </li>
+        </ul>
+        La información se introduce a través de dos lista desplegables donde se indique la
+        habitación donde se ha cometido el crimen y otra para indicar el sospechoso. Tras
+        pulsar un botón se debe resolver el misterio. <br>
+        Para ayudar a resolver este misterio, escriba una combinación de declaraciones
+        condicionales que: <br>
+        <ol>
+        <li> establece el valor del arma según la habitación</li>
+        <li> establece el valor de "resuelto" en verdadero si el valor de la habitación coincide con la habitación del sospechoso.</li>
+        </ol>
+        
+        Luego, use esta plantilla para imprimir un mensaje a la consola si se resolvió el
+        misterio:
+
+        <ul>o ----- lo hizo en el ----- con el -----</ul>
+        ------------------------------------------------------------------------------------------------------ <br>
+        ------------------------------------------------------------------------------------------------------ <br>
+        ------------------------------------------------------------------------------------------------------ <br>
+    </p>
+    <script>
+        function resolverCaso() {
+            
+        var room = document.getElementById("habitacion").value;
+        
+        var suspect = document.getElementById("sospechoso").value;
+        
+        var weapon = "";  // Valor inicial vacío
+        console.log(room);
+        console.log(suspect);
+
+
+        // Una variable boleana para decirnos el estado del caso
+        // true --> solved and false --> unsolved
+        var solved = false;
+
+        /*
+        * Combinacion de secuencias condicionales para:
+        * 1. establecer el valor del arma en funcion de la habitación 
+        * 2. establecer el valor de la variable booleana a true si el valor de la habitacion coincide con la habitacion del sospechoso
+        */
+        if (room === 'Baile') {
+            weapon = 'veneno';
+            // Mr. Kalehoff estuvo presente en el Baile a la hora del asesinato
+            if(suspect==="Kalehoff") 
+                solved = true;
+        }
+        /* OTRA FORMA DE HACERLO
+        if (room === 'baile' && suspect==="Kalehoff") {
+            weapon = 'veneno';
+            solved = true;
+        }
+        */
+
+        else if (room === 'Galeria') {
+            weapon = 'trofeo';
+            // Van Cleve estuvo presente en la galeria a la hora del asesinato
+            if(suspect==="VanCleve") 
+                solved = true;
+        }
+        else if (room === 'Billar') {
+            weapon = 'palo';
+            // Sparr estuvo presente en billar a la hora del asesinato
+            if(suspect==="Sparr") 
+                solved = true;
+        } 
+        else if (room === 'Comedor') {
+            weapon = 'cuchillo';
+            // Mr. Parkes estuvo presente en el comedor a la hora del asesinato
+            if(suspect==="Parkes") 
+                solved = true;
+        }   
+
+        /* ****************************************** */
+        // Cambiamos el párrafo en función de si se ha resuelto el caso o no
+
+        if (solved) {
+            document.getElementById("parrafo").innerHTML= (suspect + " lo hizo en el "+ room +" con el "+weapon+"!") ;
+            console.log(suspect + " lo hizo en el "+ room +" con el "+weapon+"!");
+        } else {
+            document.getElementById("parrafo").innerHTML= "El caso no está resuelto";
+            console.log("El caso no está resuelto");
+        }
+
+        /* ****************************************** */
+        
+        }
+    </script>
+
+    <form>
+        <p>
+            <select id="habitacion" onclick="resolverCaso">
+                <option value="">Donde se ha cometido el crimen</option>    
+                <option value = "Baile">Baile</option>
+                <option value = "Galeria">Galeria</option> 
+                <option value = "Billar">Billar</option> 
+                <option value = "Comedor">Comedor</option> 
+
+            </select>
+
+            <select id="sospechoso" onclick="resolverCaso">
+                <option value="">Lista de sospechosos</option>
+                <option value="Parkes">Parkes</option>
+                <option value="VanCleve">VanCleve</option> 
+                <option value="Sparr">Sparr</option> 
+                <option value="Kalehoff">Kalehoff</option> 
+
+            </select>
+
+            <input type="button" value="¿Quien es el asesino?" onclick="resolverCaso()">
+        </p>
+    </form>
+
+    <p id="parrafo">Busca al sospechoso</p>
+
+</body>
+</html>
