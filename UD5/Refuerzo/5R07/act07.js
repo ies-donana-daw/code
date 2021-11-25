@@ -1,5 +1,5 @@
 
-var patrones = {
+const patrones = {
     dni: 'Formato válido: 99.999.999-X',
     nombre: 'Introduzca al menos un nombre y un apellido. Max: 2 nombres 2 apellidos',
     fnac: 'Formato válido: dd/mm/yyyy',
@@ -9,11 +9,11 @@ var patrones = {
     cpassword: 'Debe contener entre 8 y 10 caracteres',
 };
 
-var inputs = document.getElementsByTagName('input');
-var passwords = document.getElementsByName('contraseña');
-var save = document.getElementById('save');
-var see = document.getElementById('see');
-var error = document.getElementById('error');
+let inputs = document.getElementsByTagName('input');
+let passwords = document.getElementsByName('contraseña');
+let save = document.getElementById('save');
+let see = document.getElementById('see');
+let error = document.getElementById('error');
 
 
 function validarInput(e) {

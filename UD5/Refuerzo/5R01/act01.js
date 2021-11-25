@@ -1,5 +1,4 @@
-var document = document;
-var res = document.getElementById('res');
+let res = document.getElementById('res');
 
 document.addEventListener('mousedown', evento => {
     evento = evento || window.event;

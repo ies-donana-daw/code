@@ -1,4 +1,4 @@
-var res = document.getElementById('res');
+let res = document.getElementById('res');
 
 document.addEventListener('mousedown', capturarEvento);
 document.addEventListener('keydown', capturarEvento);

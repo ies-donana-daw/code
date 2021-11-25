@@ -1,4 +1,4 @@
-var img = document.getElementById('img');
+let img = document.getElementById('img');
 
 img.addEventListener('mousedown', capturarEvento);
 img.addEventListener('mouseup', capturarEvento);

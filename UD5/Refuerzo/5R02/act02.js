@@ -1,10 +1,10 @@
 
-var caja = document.getElementById('caja');
+let caja = document.getElementById('caja');
 
 document.addEventListener('keydown', evento => {
     evento = evento || window.event;
     
-    var position = 0;
+    let position = 0;
 
     console.log("dentro evento, tecla pulsada: " + evento.code);
 
@@ -37,8 +37,8 @@ document.addEventListener('keydown', evento => {
     }
 });
 //Otra opcion
-/*          var arriba = 0;
-			var izquierda = 0;
+/*          let arriba = 0;
+			let izquierda = 0;
 			function mover(e){
 
 				switch(e.code){
