@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4A02</title>
+</head>
+<body>
+    <div>
+        <p>Ejercicio 4A02</p>
+        <p>Crear un vector de 10 elementos con valores aleatorios comprendidos entre 0 y 1000. </p>
+        <p>Buscar el menor y el mayor</p>
+        <p>Generar otro vector a partir de él que deje fuera dichos valores.</p>
+        <p>Usar solo los métodos vistos hasta ahora</p>
+    </div>
+
+    <button id="bIniciar">Iniciar</button>
+    <p id="resultado"></p>
+
+    <script>
+
+        let resultado = document.getElementById('resultado');
+        
+        let bIniciar = document.getElementById('bIniciar');
+        bIniciar.addEventListener("click", llenarArray);
+
+        function llenarArray() {
+            
+            let array1 = [];
+
+            for (let i = 0; i <= 10; i++) {
+                array1.push(numeroAleatorio());
+            }
+
+            resultado.innerHTML = "Array inicial: <br> <br>";
+            resultado.innerHTML += array1.join(" - ") + "<br> <br>";
+            
+            let array1Ordenado = [...array1];
+            array1Ordenado.sort(comparar);
+
+            resultado.innerHTML += "Array inicial ordenado: <br> <br>";
+            resultado.innerHTML += array1Ordenado.join(" - ") + "<br> <br>";
+
+            let max = Math.max(...array1);
+            let  min = Math.min(...array1);
+
+            resultado.innerHTML += "<ul>";
+            resultado.innerHTML += "<li> MAX: " + max + "</li>"
+            resultado.innerHTML += "<li> MIN: " + min + "</li>"
+            resultado.innerHTML += "</ul> <br>";
+            
+            nuevoArray(array1, max, min);
+        }
+
+        function nuevoArray(array, max, min) {
+            
+            let array2 = [...array];
+            
+            //Quitar menor
+            let indiceMenor = array2.indexOf(min);
+            array2.splice(indiceMenor, 1);
+            
+            //Quitar mayor
+            let indiceMayor = array2.indexOf(max);
+            array2.splice(indiceMayor, 1);
+            
+            resultado.innerHTML += "Nuevo array: <br> <br>";
+            resultado.innerHTML += array2.join(" - ") + "<br><br>"
+            
+            array2Ordenado = [...array2];
+            array2Ordenado.sort(comparar);
+
+            resultado.innerHTML += "Nuevo array ordenado: <br> <br>";
+            resultado.innerHTML += array2Ordenado.join(" - ") + "<br><br>";
+        }
+
+
+        function numeroAleatorio() {
+            return Math.floor(Math.random() * 1001)
+        }
+
+        function comparar(a, b) {
+            return a - b;
+        }
+        
+    </script>
+
+</body>
+</html>

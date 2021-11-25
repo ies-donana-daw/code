@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5A01</title>
+    <style>
+        #cartel{
+            background-color: yellow;
+            position:fixed;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <p>Actividad 5A01</p>
+        <p>Crea una web que en cada movimiento del ratón sobre ella (evento del ratón: onmousemove) un cartel con fondo amarillo siga al cursor mostrando las coordenadas clientX/Y y screenX/Y. </p>
+        <p>Pista: CSS position: fixed</p>
+
+    </div>
+    <div id="cartel">Mueve el ratón</div>
+
+    <script>
+        
+        document.addEventListener("mousemove",function(ev){
+                                                    let cartel=document.getElementById("cartel");
+                                                    cartel.style.left=ev.clientX+"px";
+                                                    cartel.style.top=ev.clientY+"px";
+                                                    cartel.innerText = `clientX: ${ev.clientX}px, clientY: ${ev.clientY}px
+                                                                        screenX: ${ev.screenX}px, screenX: ${ev.screenY}px`;
+
+                                                    });
+    </script>
+
+</body>
+</html>

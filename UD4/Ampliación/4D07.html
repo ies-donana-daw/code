@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D07</title>
+    <style>
+        li {list-style: none;}
+    </style>
+</head>
+<body>
+    <div>
+        7. Crear un objeto a partir del array usuarios. Debemos crear una función agruparPorId que cree un objeto con el id del usuario seguido de su valor como clave y todos los elementos del
+        array como valores. <br> 
+        Nota: usa reduce.<br>
+        <ul>
+            <li>const usuarios = [</li>
+            <li>{ id: 1, name: "John", age: 18, address: {street: "5th", city: "NYC"} },</li>
+            <li>{ id: 2, name: "Ali", age: 15, address: {street: "4th", city: "WST"} },</li>
+            <li>{ id: 3, name: "Mass", age: 26, address: {street: "2th", city: "NYC"} },</li>
+            <li>{ id: 4, name: "Mark", age: 38, address: {street: "6th", city: "LAC"} },</li>
+            <li>{ id: 5, name: "Eve", age: 16, address: {street: "7th", city: "NYC"} },</li>
+            <li>{ id: 6, name: "Rob", age: 57, address: {street: "21th", city: "LAC"} }</li>
+            <li>]</li>
+        </ul>
+    </div>
+    <br>
+    <button id="bIniciar">Iniciar</button>
+    <p id="resultado"></p>
+
+
+
+
+    <script>
+        const usuarios = [
+          { id: 1, name: "John", age: 18, address: {street: "5th", city: "NYC"} },
+          { id: 2, name: "Ali", age: 15, address: {street: "4th", city: "WST"} },
+          { id: 3, name: "Mass", age: 26, address: {street: "2th", city: "NYC"} },
+          { id: 4, name: "Mark", age: 38, address: {street: "6th", city: "LAC"} },
+          { id: 5, name: "Eve", age: 16, address: {street: "7th", city: "NYC"} },
+          { id: 6, name: "Rob", age: 57, address: {street: "21th", city: "LAC"} }
+        ]
+        console.log(usuarios);
+        
+        let bIniciar = document.getElementById("bIniciar");
+        let resultado = document.getElementById("resultado");
+
+        bIniciar.addEventListener("click", () => {
+                                                    let nuevoObjeto = agruparPorId(usuarios);
+                                                    resultado.innerText= listarObjeto(nuevoObjeto);
+                                                    console.log(nuevoObjeto);
+                                                });
+        
+        //Función que crea un objeto a partir del array introducido como parámetro usando reduce.
+        //Es importante poner como valor inicial del acumulador (segundo parámetro) un objeto vacío 
+        function agruparPorId(users) {
+            let objeto = users.reduce((obj, value) => {
+                                                        obj[`id${value.id}`] = value;
+                                                        return obj;
+                                                    }, {})
+            return objeto;
+        }
+
+        //Función para mostrar el objeto creado. Falta depurar
+        function listarObjeto(obj){
+            let cadena = "";
+            for (let prop in obj){
+                    cadena += `${prop}: `
+                    if (typeof obj[prop] == "object") {
+                        let cadena2 = "";
+                        cadena += `{${listarObjeto(obj[prop], cadena2)}}\n`; 
+                    } else {
+                        cadena += ` ${obj[prop]}, `; 
+                    }
+            }
+            return cadena;   
+        }
+        
+    </script>
+</body>
+</html> 

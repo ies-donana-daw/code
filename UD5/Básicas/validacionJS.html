@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "uft-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>4 Validacion de formularios JS</title>
+    </head>
+
+    <body>
+        <h1>Validación de formularios con JS</h1>
+        <fieldset><legend>Formulario Clasico</legend>
+            <form action="" method="get" id="form0" name="form1">
+                <table>
+                    <tr><td>Nombre:</td><td><input type="text" id="campo" name="Nombre"/></td></tr>
+                    <tr><td>Telefono:</td><td><input type="text" id="telefono" name="Telefono"/></td></tr>
+                    <tr><td>Fecha de Nacimiento:</td>
+                        <td><input type="text" id="dia" name="dia1" size="2" />
+                            <input type="text" id="mes" name="mes1" size="2"/>
+                            <input type="text" id="ano" name="ano1" size="4"/></td></tr>
+                    <tr><td>Sexo:</td>
+                        <td><input type="radio" id="sexo0" name="sexo" value="H" checked="checked"/>Hombre
+                            <input type="radio" id="sexo1" name="sexo" value="M"/>Mujer </td></tr>
+                    <tr><td>Mayor de 18:</td><td><input type="checkbox" id="campoCondiciones" name="mayor1" checked="checked"/></td></tr>
+                    <tr><td></td>
+                        <td><input type="submit" id="sm0" name="sm1" value="Enviar"/>
+                            <input type="reset" id="rs0" name="rs1" value="Borrar"/></td></tr>
+                </table>
+            </form>
+        </fieldset>
+
+        <br><br>
+        
+        <p id="res"></p>
+        
+        <script>
+            
+            function validaNombre() {
+                let elemento = document.getElementById("campo");
+                let valor = elemento.value;
+
+                if( valor == null || valor.length == 0 || valor == ""){
+                    alert("El campo " + elemento.name +" no puede ser vacío");
+                    return false;
+                }
+                return true;
+            }
+
+            function validaTelefono() {
+                let elemento = document.getElementById("telefono");
+                let valor = elemento.value;
+                let exp = new RegExp(/[0-9]{3}-[0-9]{3}-[0-9]{3}/);
+                console.log(exp.test(valor))
+                if(!exp.test(valor)) {
+                    alert("El campo " + elemento.name + " tiene que tener el formato: 999-999-999");
+                    return false;
+                }
+                return true;
+            }
+
+            function validaFecha() {
+              
+                let dia = document.getElementById("dia").value;
+                let mes = document.getElementById("mes").value;
+                let ano = document.getElementById("ano").value;
+                let fecha = new Date(ano, mes, dia);
+                if(isNaN(fecha) ) {
+                    alert("Introduce una fecha correcta");
+                    return false;
+                }
+                return true;
+            }
+
+            function validaCheck() {
+                elemento = document.getElementById("campoCondiciones");
+                if( !elemento.checked ) {
+                    alert("Debes ser mayor de edad para enviar el formulario");
+                    return false;
+                }
+                return true;
+            }
+
+
+            function validar(evento){
+                if (validaNombre() && validaTelefono() && validaFecha() && validaCheck() && confirm("Pulsa aceptar si deseas enviar el formulario")){
+                    return true;
+                }else{
+                    evento.preventDefault();
+                    return false;
+                }
+            }
+
+          // document.getElementById("sm0").addEventListener("click", validar, false);
+           document.getElementById("form0").addEventListener("submit", validar, false);
+
+        </script>
+    </body>
+</html>

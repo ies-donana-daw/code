@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3DA4</title>
+    <style>
+        li {list-style: none;}
+    </style>
+</head>
+<body>
+    <div>
+        4. Utilizando el array usuarios del ejercicio anterior, muestra por consola un mensaje por cada usuario con el formato:<br>
+        “El usuario 1 se llama John, es mayor de edad y reside en la 5th de NYC”<br>
+        
+        <ul>
+            <li>const usuarios = [</li>
+            <li>{ id: 1, name: "John", age: 18, address: {street: "5th", city: "NYC"} },</li>
+            <li>{ id: 2, name: "Ali", age: 15, address: {street: "4th", city: "WST"} },</li>
+            <li>{ id: 3, name: "Mass", age: 26, address: {street: "2th", city: "NYC"} },</li>
+            <li>{ id: 4, name: "Mark", age: 38, address: {street: "6th", city: "LAC"} },</li>
+            <li>{ id: 5, name: "Eve", age: 16, address: {street: "7th", city: "NYC"} },</li>
+            <li>{ id: 6, name: "Rob", age: 57, address: {street: "21th", city: "LAC"} }</li>
+            <li>]</li>
+
+        </ul>
+
+    </div>
+
+    <hr>
+
+    <button id="bIniciar">Iniciar</button>
+
+    <p id="resultado"></p>
+
+    <script>
+
+        const usuarios = [
+                            { id: 1, name: "John", age: 18, address: {street: "5th", city: "NYC"} },
+                            { id: 2, name: "Ali", age: 15, address: {street: "4th", city: "WST"} },
+                            { id: 3, name: "Mass", age: 26, address: {street: "2th", city: "NYC"} },
+                            { id: 4, name: "Mark", age: 38, address: {street: "6th", city: "LAC"} },
+                            { id: 5, name: "Eve", age: 16, address: {street: "7th", city: "NYC"} },
+                            { id: 6, name: "Rob", age: 57, address: {street: "21th", city: "LAC"} }
+                        ];
+
+        const bIniciar  = document.getElementById("bIniciar");
+        bIniciar.addEventListener("click", iniciar);
+
+        function iniciar(){
+
+            let resultado = document.getElementById("resultado");
+
+            resultado.innerText="";
+            usuarios.forEach(usuario => {
+                                            let mayorEdad = (usuario.age>=18) ? "mayor de edad" : "menor de edad";                            
+                                            return resultado.innerText += `El usuario ${usuario.id} se llama  ${usuario.name}, es ${mayorEdad} y reside en la ${usuario.address.street} de ${usuario.address.city}\n`;
+                                        });
+        }
+
+    </script>
+</body>
+</html>

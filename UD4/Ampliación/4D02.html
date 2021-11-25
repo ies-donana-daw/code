@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3DA2</title>
+</head>
+<body>
+    <p>
+        2. Calcular la media de los valores que se pasen a través de un array, descartando los valores máximo y mínimo.<br>
+        Nota: Reutiliza el código de la actividad 3A03<br>
+    </p>
+
+    <hr>
+
+    <button id="bIniciar">Iniciar</button>
+
+    <p id="resultado"></p>
+
+    <script>
+        const bIniciar  = document.getElementById("bIniciar");
+
+        bIniciar.addEventListener("click", iniciar);
+
+        function iniciar(){
+
+            let resultado = document.getElementById("resultado");
+            
+            let array = [];
+            let longitud;
+            
+            while (isNaN(longitud) || longitud < 3 || longitud > 15) {
+                longitud  = prompt("¿Cuál va a ser el tamaño de tu array (de 3 a 15 elementos máximo)?");
+            }
+
+            for (let i = 0; i < longitud; i++){
+                let numero;
+                while (isNaN(numero) || numero =="") {
+                numero  = prompt(`Introduce el elemento ${i} del array`);
+                }
+                array.push(parseInt(numero));
+            } 
+
+            console.log("array", array);
+
+            const minimo = Math.min(...array);
+            const maximo = Math.max(...array);
+
+            //const arrayFiltrado = array.filter(elem => elem != minimo && elem != maximo); //Si hay números iguales los filtraría todos
+            
+            let arrayFiltrado = [...array];
+
+            arrayFiltrado.splice(arrayFiltrado.findIndex(elem => elem == minimo), 1);
+            console.log("arrayFiltrado sin mínimo", arrayFiltrado);
+            arrayFiltrado.splice(arrayFiltrado.findIndex(elem => elem == maximo), 1);
+            console.log("arrayFiltrado sin máximo", arrayFiltrado);
+            
+            const media = arrayFiltrado.reduce((acc, actual)=> acc+actual) / arrayFiltrado.length;            
+             
+            resultado.innerText = `El array: ${array} 
+                                   tiene como elemento máximo a: ${maximo} y como mínimo a: ${minimo}
+                                   por tanto el array sin estos elementos será: ${arrayFiltrado}
+                                   y su media aritmética: ${media}`
+            
+            console.log(resultado);
+            
+        }
+    </script>
+</body>
+</html>

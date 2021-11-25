@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5A02</title>
+</head>
+<body>
+    <div>
+        <p>Actividad 5A02</p>
+        <p>Crea una web que descargue de internet 10 imágenes de alta calidad. </p>
+        <p>Se mostrará un panel con el mensaje “Cargando…” durante la carga.</p>
+        <p>El panel se retirará automáticamente cuando se carguen todas las imágenes</p>
+    </div>
+
+    <div id="cargando">Cargando...</div>
+
+    <div id = "panel" style="display:none;">
+        <img src = "http://lorempixel.com/1920/1048/technics">
+        <img src = "https://source.unsplash.com/random/1920/">
+        <img src = "https://picsum.photos/seed/3/1920/">
+        <img src = "http://lorempixel.com/1920/1048/technics/1">
+        <img src = "https://source.unsplash.com/random">
+        <img src = "https://picsum.photos/seed/3/1920?grayscale">
+        <img src = "http://lorempixel.com/1920/1048/technics/2">
+        <img src = "https://source.unsplash.com/random/1920/">
+        <img src = "https://picsum.photos/1920/">
+        <img src = "http://lorempixel.com/1920/1048/people">
+    </div>
+
+    <script>
+        
+        let cargando = document.getElementById("cargando");
+        let panel = document.getElementById("panel");
+
+        window.addEventListener("load", () => {
+            panel.style.display="";
+            cargando.style.display="none";
+        
+        });
+      
+    </script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3DA3</title>
+    <style>
+        li {list-style: none;}
+    </style>
+</head>
+<body>
+    <div>
+        3. Con esta estructura de datos:<br>
+        
+        <ul>
+            <li>const usuarios = [</li>
+            <li>{ id: 1, name: "John", age: 18, address: {street: "5th", city: "NYC"} },</li>
+            <li>{ id: 2, name: "Ali", age: 15, address: {street: "4th", city: "WST"} },</li>
+            <li>{ id: 3, name: "Mass", age: 26, address: {street: "2th", city: "NYC"} },</li>
+            <li>{ id: 4, name: "Mark", age: 38, address: {street: "6th", city: "LAC"} },</li>
+            <li>{ id: 5, name: "Eve", age: 16, address: {street: "7th", city: "NYC"} },</li>
+            <li>{ id: 6, name: "Rob", age: 57, address: {street: "21th", city: "LAC"} }</li>
+            <li>]</li>
+
+        </ul>
+
+        Devolver los usuarios mayores de edad que residan en Nueva York
+    </div>
+
+    <hr>
+
+    <label for="sCiudad">Elige la ciudad</label>
+    <select id = "sCiudad"></select>
+    <labe for="iEdad">Elige la edad mínima</label>
+    <input type="number" id="iEdad" min="0" max="99" value="0"> 
+
+    <button id="bIniciar">Iniciar</button>
+
+    <p id="resultado"></p>
+
+    <script>
+
+        const usuarios = [
+                            { id: 1, name: "John", age: 18, address: {street: "5th", city: "NYC"} },
+                            { id: 2, name: "Ali", age: 15, address: {street: "4th", city: "WST"} },
+                            { id: 3, name: "Mass", age: 26, address: {street: "2th", city: "NYC"} },
+                            { id: 4, name: "Mark", age: 38, address: {street: "6th", city: "LAC"} },
+                            { id: 5, name: "Eve", age: 16, address: {street: "7th", city: "NYC"} },
+                            { id: 6, name: "Rob", age: 57, address: {street: "21th", city: "LAC"} }
+                        ];
+
+        const bIniciar  = document.getElementById("bIniciar");
+        const sCiudad = document.getElementById("sCiudad");
+
+        //Quiero crear un select con todas las ciudades del array usuario, quitando además los valores repetidos
+        //Primero creo un array con las ciudades sin repetir
+        let ciudades = usuarios.reduce((acc, item) => {
+                                                        if (!acc.includes(item["address"]["city"])){
+                                                            acc.push(item["address"]["city"]);
+                                                        }
+                                                        return acc;
+                                                      }, []);
+
+        //Y ahora genero el código HTML de los option del select recorriendo el array ciudades
+        for (let ciudad of ciudades) {
+            sCiudad.innerHTML+=`<option value=${ciudad}>${ciudad}</option>` 
+        }
+
+        
+       bIniciar.addEventListener("click", iniciar);
+
+        function iniciar(){
+
+            let resultado = document.getElementById("resultado");
+            const ciudadElegida = document.getElementById("sCiudad").value;
+            const edadMinima = document.getElementById("iEdad").value;
+
+            let usuariosFiltrados = usuarios.filter(usuario => usuario.address.city == ciudadElegida && usuario.age >= edadMinima); 
+            console.log(usuarios);
+            console.log(usuariosFiltrados);
+
+            resultado.innerText="";
+
+            usuariosFiltrados.length == 0 ? resultado.innerText = `No existen usuarios que cumplan esas condiciones` : mostrarUsuarios(usuariosFiltrados, edadMinima);
+            
+        }
+
+        function mostrarUsuarios(usuarios, edadMinima){
+            for (let usuario of usuarios){
+                resultado.innerText += `El usuario ${usuario.name} es de ${usuario.address.city} y tiene más de ${edadMinima}, concretamente ${usuario.age}\n`
+            }
+        }
+
+    </script>
+</body>
+</html>

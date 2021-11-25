@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <script src="act07.js" defer></script>
+        <style>
+            .error {
+                border: solid 2px #FF0000;
+            }
+        </style>
+        <title>5R07</title>        
+    </head>
+
+    <body>
+        <form action="page2.php" method="get">
+            <table>
+                <tr>
+                    <td><label for="dni">DNI:</label></td>
+                    <td><input type="text" name="dni" id="dni" pattern="\d{2}\.\d{3}\.\d{3}-[A-Z]{1}" required></td>
+                    <td>(Formato válido: 99.999.999-X)</td>
+                </tr>
+                <tr>
+                    <td><label for="nombre">Nombre:</label></td>
+                    <td><input type="text" name="nombre" id="nombre" pattern="^((\s?[a-zA-ZáéíóúÁÉÍÓÚñÑ]+){1,2}){1,2}" required></td>
+                    <td>(Introduzca al menos un nombre y un apellido. Max: 2 nombres 2 apellidos)</td>
+                </tr>
+                <tr>
+                    <td><label for="fnac">F.Nac:</label></td>
+                    <td><input type="date" name="fnac" id="fnac" required></td>
+                    <td>(Formato válido: dd/mm/yyyy)</td>
+                </tr>
+                <tr>
+                    <td><label for="email">E-mail:</label></td>
+                    <td><input type="text" name="email" id="email" pattern="^[a-z]+\d*[a-z@[a-z]+\.[a-z]{2,3}(\.[a-z]{2,3})?"
+                        required></td>
+                    <td>(xxx@yyy.zzz)</td>
+                </tr>
+                <tr>
+                    <td><label for="pweb">Página web:</label></td>
+                    <td><input type="text" name="pweb" id="pweb" pattern="http(s)?:\/\/w{3}\.[a-z]*\.[a-z]{2,3}(\.[a-z]{2,3})?"
+                        required></td>
+                    <td>(Formato válido: http://www.xxx.yyy)</td>
+                </tr>
+                <tr>
+                    <td><label for="password">Contraseña:</label></td>
+                    <td><input type="password" name="contraseña" id="password" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\W]{8,10}$" required></td>
+                    <td>(Debe contener entre 8 y 10 caracteres)</td>
+                </tr>
+                <tr>
+                    <td><label for="cpassword">Confirmar contraseña:</label></td>
+                    <td><input type="password" name="contraseña" id="cpassword" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\W]{8,10}$"
+                        required></td> 
+                    <td>(Debe contener entre 8 y 10 caracteres)</td>
+                </tr>
+            </table>
+
+            <button type="submit" id="save">GUARDAR</button>
+            <button type="button" id="see">VER</button>
+
+            <p id="error"></p>
+        </form>
+    </body>
+
+</html>

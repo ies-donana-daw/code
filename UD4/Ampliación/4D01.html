@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3DA1</title>
+</head>
+<body>
+    <div>
+        1. Comprobar que una cadena pasada por el usuario incluya un carácter determinado.<br>
+        Nota:<br>
+        <ul>
+            <li>No se trata de usar métodos de cadenas, ni métodos como includes.</li>
+            <li>Una forma de pasar una cadena a array podría ser:</li>
+            <li style="list-style:none"><ul>○ miCadena.split("")</ul></li>
+        </ul>
+    </div>
+
+    <hr>
+
+    <button id="bIniciar">Iniciar</button>
+
+    <p id="resultado"></p>
+
+    <script>
+        const bIniciar  = document.getElementById("bIniciar");
+
+        bIniciar.addEventListener("click", iniciar);
+
+        function iniciar(){
+
+            let resultado = document.getElementById("resultado");
+            let caracter = "  ";
+            const cadena  = prompt("Por favor, la cadena a analizar:");
+
+            while (caracter.length != 1) {
+                caracter = prompt("Por favor, introduce, el carácter a buscar. Debe ser solo uno");
+            } 
+
+            let incluido = cadena.split("").some(elem =>elem == caracter);
+
+            let donde = cadena.split("").findIndex(elem => elem == caracter);
+
+            (incluido) ? resultado.innerText = `La cadena: ${cadena} 
+                          incluye el carácter: ${caracter} en la posición ${donde +1}`
+                       : resultado.innerText = `La cadena: ${cadena}
+                          no incluye al carácter: ${caracter}`;
+            
+            console.log(resultado);
+            
+        }
+    </script>
+</body>
+</html>

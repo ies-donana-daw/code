@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4A01</title>
+</head>
+<body>
+    <div>
+        <p>Ejercicio 4A01</p>
+        <p>Crea un programa que le pida al usuario que introduzca una serie de números y calcule la media aritmética.</p>
+        <p>         
+            Se debe resolver el problema definiendo una función con parámetros REST 
+            e invocándola con un argumento que utilice el operador SPREAD
+        </p>
+    </div>
+
+    <button id="bIniciar">Iniciar</button>
+    <p id="resultado"></p>
+
+    <script>
+
+        let arrayNumeros = [];
+        
+        let bIniciar = document.getElementById("bIniciar");
+        bIniciar.addEventListener("click", iniciar);
+
+        function iniciar(){
+            let numero = pedirNumero();
+            introducirNumero(numero, arrayNumeros);
+            let confirmacion = confirm("¿Quieres introducir más números?");
+            (confirmacion) ? iniciar() : document.getElementById("resultado").innerText = `La media de todo el array es ${calcularMedia(...arrayNumeros)}`;
+        }
+
+        function pedirNumero(){
+        
+            let numero = parseInt(prompt("Por favor, introduce un número"));
+            while (isNaN(numero)){
+                numero = parseInt(prompt("Por favor, introduce un número"));
+            }
+                return numero;
+            
+        }
+
+        function introducirNumero(numero, array){
+            array.push(numero);
+            console.log(array);
+        }
+
+        function calcularMedia(...array) {
+            let suma = 0;
+            for (let elemento of array) {
+                suma += elemento;
+            }
+            console.log(suma, array.length)
+            return suma / array.length
+        }
+        
+
+    </script>
+
+</body>
+</html>

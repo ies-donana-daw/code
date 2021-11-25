@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3DA5</title>
+    <style>
+        li {list-style: none;}
+    </style>
+</head>
+<body>
+    <div>
+        5. Utilizando el array usuarios, crea una función que devuelva el nombre de usuario al pasarle como parámetro el id.<br>
+        
+        <ul>
+            <li>const usuarios = [</li>
+            <li>{ id: 1, name: "John", age: 18, address: {street: "5th", city: "NYC"} },</li>
+            <li>{ id: 2, name: "Ali", age: 15, address: {street: "4th", city: "WST"} },</li>
+            <li>{ id: 3, name: "Mass", age: 26, address: {street: "2th", city: "NYC"} },</li>
+            <li>{ id: 4, name: "Mark", age: 38, address: {street: "6th", city: "LAC"} },</li>
+            <li>{ id: 5, name: "Eve", age: 16, address: {street: "7th", city: "NYC"} },</li>
+            <li>{ id: 6, name: "Rob", age: 57, address: {street: "21th", city: "LAC"} }</li>
+            <li>]</li>
+
+        </ul>
+
+    </div>
+
+    <hr>
+
+    <label for="sId">Elige el id</label>
+    <select id = "sId"></select>
+
+    <button id="bIniciar">Iniciar</button>
+
+    <p id="resultado"></p>
+
+    <script>
+
+        const usuarios = [
+                            { id: 1, name: "John", age: 18, address: {street: "5th", city: "NYC"} },
+                            { id: 2, name: "Ali", age: 15, address: {street: "4th", city: "WST"} },
+                            { id: 3, name: "Mass", age: 26, address: {street: "2th", city: "NYC"} },
+                            { id: 4, name: "Mark", age: 38, address: {street: "6th", city: "LAC"} },
+                            { id: 5, name: "Eve", age: 16, address: {street: "7th", city: "NYC"} },
+                            { id: 6, name: "Rob", age: 57, address: {street: "21th", city: "LAC"} }
+                        ];
+
+        const bIniciar  = document.getElementById("bIniciar");
+        const sId = document.getElementById("sId");
+
+        
+        //Supuestamente los id serán todos distintos
+        for (let usuario of usuarios) {
+            sId.innerHTML+=`<option value=${usuario.id}>${usuario.id}</option>` 
+        }
+
+        
+       bIniciar.addEventListener("click", iniciar);
+
+        function iniciar(){
+            let resultado = document.getElementById("resultado");
+            const idElegido = document.getElementById("sId").value;
+
+            let usuarioEncontrado = usuarios.find(usuario => usuario.id == idElegido); 
+
+            resultado.innerText="";
+
+            //En teoría no sería necesario realizar esta comprobación porque solo aparecerán options con id del objeto
+            !usuarioEncontrado ? resultado.innerText = `No existen usuarios que cumplan esas condiciones` : resultado.innerText = `El usuario ${usuarioEncontrado.name} tiene el id solicitado ${usuarioEncontrado.id}\n`;
+            
+        }
+
+    </script>
+</body>
+</html>
