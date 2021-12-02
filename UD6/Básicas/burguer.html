@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+        
+         header, section, aside, footer, div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header {
+            height: 20vh;
+            background: #b1d184;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            height: 10vh;
+            background: #d8eeba;
+        }
+
+        main {
+            background: #d8eeba;
+        }
+
+        section {
+            width: 75%;
+            height: 60vh;
+            background: #88db14;
+            float:left;
+        }
+        
+        aside {
+            width: 25%;
+            height: 60vh;
+            background: #2c420d;
+        }
+
+        footer {
+            height: 10vh;
+            background: #52584a;
+        } 
+
+        .barra {
+            background:#52584a;
+            margin-bottom: 2px;
+            border-radius:2px; 
+            width:25px;
+            height:5px;
+            list-style: none; 
+        }
+
+        #hamburguesa{
+            display: none; 
+            background: #d8eeba;
+            height:30px;
+            width:30px;
+            cursor: pointer;
+        }
+
+        #menu{
+            display: none;
+            flex-direction: column;
+            background-color: #52584a;
+        }
+
+        .menuItem{
+            text-align: center;
+        }
+
+        /* @media  (max-width: 768px) {
+         #panelNav {
+             display: none;
+         }
+         #hamburguesa{
+             display: flex;
+         }
+        } */
+
+    </style> 
+    
+  </head>
+
+  <body>
+    <header>Cabecera</header>
+    <nav id="panelNav">
+            <div>Panel 1</div>
+            <div>Panel 2</div>
+            <div>Panel 3</div>
+            <div>Panel 4</div>
+    </nav>
+    
+
+    <main>
+        <div id="hamburguesa">
+            <ul>
+                <li id="barraTop" class="barra"></li>
+                <li id="barraMid" class="barra"></li>
+                <li id="barraBottom" class="barra"></li>
+            </ul>
+        </div>
+    
+        <div id="menu">
+            <a href="#" class="menuItem">Panel 1</a>
+            <a href="#" class="menuItem">Panel 2</a>
+            <a href="#" class="menuItem">Panel 3</a>
+            <a href="#" class="menuItem">Panel 4</a>
+        </div>
+      <section>Sección Principal</section>
+    </main>
+    
+    <aside>Barra Lateral</aside>
+    <footer>Institucional</footer>
+
+    <script>
+
+        let panel = document.getElementById("panelNav");
+        let burguer = document.getElementById("hamburguesa");
+        let menu = document.getElementById("menu");
+        let btop = document.getElementById("barraTop");
+        let bbottom = document.getElementById("barraBottom");
+        let bmid = document.getElementById("barraMid");
+        
+        window.addEventListener("load", visualizarBurguer);
+        window.addEventListener("resize", visualizarBurguer);
+        burguer.addEventListener("click", toggleMenu)
+
+          
+        function visualizarBurguer() { //Podría hacerse con media queries
+            if (window.innerWidth < 768){
+                panel.style.display = "none";
+                burguer.style.display = "flex"; 
+            }else {
+                panel.style.display = "flex";
+                burguer.style.display = "none";
+                convertirEnBurguer();
+            }
+        }
+        
+        function toggleMenu() {
+           if (menu.style.display == "flex"){
+                menu.style.display = "none";
+               // convertirEnBurguer();        
+           } else {
+                menu.style.display = "flex";
+               // convertirEnCerrar();
+           }
+        }
+
+        function convertirEnBurguer() {
+            btop.style.transform = "";
+            bbottom.style.transform = "";
+            bmid.style.opacity = "100";
+        }
+
+        function convertirEnCerrar() {
+            btop.style.transform = "translateY(136%) rotate(45deg)";
+            bbottom.style.transform = "translateY(-136%) rotate(135deg)";
+            bmid.style.opacity = "0";
+        }
+
+    </script>
+  </body>
+</html>

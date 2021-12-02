@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6A01</title>
+    <script src="act01.js" defer></script>
+</head>
+
+<body>
+    <p>
+        6A01. Crear una array multidimensional que recoja los nombres de 5 alumnos y las notas
+        obtenidas en tres módulos. Dicha información será introducida por el usuario y una vez
+        finalizada la recogida de datos se mostrará el contenido del array en forma de tabla generándola con métodos del DOM.
+    <p>
+    <div id="container">
+        <label for="inputName">Introduce el nombre del alumno </label> <br>
+        <input type="text"  id="inputName"> <br> <br>
+        <label for="inputDWECL">Introduce la nota de DWECL</label><br>
+        <input type="text" name="text" id="inputDWECL"><br><br>
+        <label for="inputDWESE">Introduce la nota de DWESE</label><br>
+        <input type="text" name="text" id="inputDWESE"><br><br>
+        <label for="inputDIW">Introduce la nota de DIW</label><br>
+        <input type="text" name="text" id="inputDIW"><br><br>
+
+        <button id="button"">Introducir</button>
+    </div>
+    <br><br>
+    <div>
+        <button id="button1">Tabla HTML desde JS</button>
+    </div>
+
+    <table id="tabla1"></table>
+    <br>
+
+    <div>
+        <button id="button2">Tabla DOM</button>
+    </div>
+
+    <table id="tabla2"></table>
+
+</body>
+
+</html>
