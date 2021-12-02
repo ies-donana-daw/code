@@ -52,11 +52,12 @@ function crearArray() {
 
 function crearTabla1(){
 
-  table1.innerHTML ="<tr><th>Nombre</th><th>DWECL</th><th>DWESE</th><th>DIW</th></tr>"
+  table1.innerHTML ="<thead><tr><th>Nombre</th><th>DWECL</th><th>DWESE</th><th>DIW</th></tr></thead>"
  
     for (let i=0; i<alumnos.length;i++){
         table1.innerHTML += "<tr> <td>"+alumnos[i][0]+"</td><td>"+alumnos[i][1]+"</td><td>"+alumnos[i][2]+"</td><td>" +alumnos[i][3]+"</td><tr>";
     }   
+   
 }
 
 function crearTabla2() {
@@ -77,19 +78,31 @@ function crearTabla2() {
         
     let cuerpoTabla = document.createElement('tbody');
 
-    alumnos.forEach(function(datosFilas) {
+    for (let alumno of alumnos){
         let fila = document.createElement('tr');
-
-        datosFilas.forEach(function(datosCeldas) {
+        for (let campoAlumno of alumno){
             let celda = document.createElement('td');
-            celda.appendChild(document.createTextNode(datosCeldas));
+            celda.textContent = campoAlumno;
+            //let valorCelda = document.createTextNode(campoAlumno); //Estas dos líneas son equivalentes a usar textContent
+            //celda.appendChild(valorCelda);
             fila.appendChild(celda);
-        });
-
+        }
         cuerpoTabla.appendChild(fila);
-    });
+    }
+
+    // alumnos.forEach(function(alumno) {
+    //     let fila = document.createElement('tr');
+
+    //     alumno.forEach(function(campoAlumno) {
+    //         let celda = document.createElement('td');
+    //         celda.appendChild(document.createTextNode(campoAlumno));
+    //         fila.appendChild(celda);
+    //     });
+
+    //     cuerpoTabla.appendChild(fila);
+    // });
 
     tabla2.appendChild(cuerpoTabla);
-   // document.body.appendChild(tabla2);
+    //document.body.appendChild(tabla2);
    // tabla2.setAttribute("border", "1");
 }
