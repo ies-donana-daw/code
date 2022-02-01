@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>7B07</title>
+        <script src="./act07.js" defer></script>
+        <style>
+           table, thead, th, td {
+            padding: 4px;
+            border: 1px solid;
+            border-collapse: collapse;
+           }
+        </style>
+    </head>
+    <body>
+        <h1>Actividad 7B07</h1>
+
+            <ul>
+                <li>Crea una página que tenga dos campos de texto y un botón “Añadir usuario”.</li>
+                <li>Al pulsar el botón, se debe realizar una llamada asíncrona a https://reqres.in/api/users para crear un
+                    nuevo usuario con los datos proporcionados en los campos de texto mediante un objeto FormData.</li>
+                <li>Este FormData debe contener la clave “first_name” y la clave “last_name”.</li>
+                <li>Debe mostrarse la respuesta del servidor cuando se reciba, incluyendo su código de respuesta y los datos del
+                    nuevo usuario (los mismos que se mostraban en la tabla del ejercicio previo) si se reciben (USANDO FETCH API)</li>
+                <li>Ojo la API de este ejercicio solo devuelve un id en la respuesta</li>
+            </ul>   
+        <hr>
+        <br>
+        <div id="container">
+            <label for="inputNombre">Nombre: </label>
+            <input type="text" id="inputNombre">
+            <br><br>
+            <label for="inputApellido">Apellido: </label>
+            <input type="text" id="inputApellido">
+            &nbsp;     
+            <button id="botAñadir">Añadir usuario</button>
+            <br>
+            <br>
+            <div id="res"></div>
+        </div>
+    </body>
+</html>
