@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>7R07</title>
+        <style>
+           thead, th, td {
+            padding: 4px;
+            border: 1px solid;
+            border-collapse: collapse;
+           }
+           .error {
+               color: red;
+           }
+           .noerror {
+               color: black;
+           }
+        </style>
+    </head>
+    <body>
+        <h1>7R07</h1>
+
+        <ul>
+            <li>Modifica el ejercicio 5 para que en vez del id del usuario, el campo de texto represente la
+                página de cuyos usuarios se quiere solicitar información</li>
+            <li>Realiza la petición a https://reqres.in/api/users especificando la página concreta con un query parameter y muestra los
+                datos igual que se mostraban en la actividad 7A04</li>
+            <li>Supón que el número de página proporcionado es siempre correcto</li>
+        </ul> 
+
+        <hr>
+
+        <br>
+
+        <div id="container">
+            <label for="inputPage">Introduce el número de página que quieres consultar</label>
+            <input type="number" id="inputPage">
+            <button id="botSolicitud">Solicitar página</button>
+            <br>
+            <br>
+            <div id="res"></div>
+        </div>
+
+        <script>
+
+            const boton = document.getElementById("botSolicitud");
+            const inputPage = document.getElementById("inputPage")
+            const resultado = document.getElementById("res");
+
+////PARTE PETICIÓN AJAX
+            boton.addEventListener("click", () => {
+                const page = inputPage.value;
+                peticion(`https://reqres.in/api/users?page=${page}`);
+            });
+
+            const xhr = new XMLHttpRequest;
+
+            function peticion(urlServidor){
+                xhr.open("GET", urlServidor);
+                xhr.onreadystatechange = respuesta;
+                xhr.send();
+            }
+
+            function respuesta(){
+                if(xhr.readyState == 4){
+                    if (xhr.status == 200){
+                        let objetoJSON = JSON.parse(xhr.responseText);
+                        resultado.innerHTML="";
+                        numeroPaginas(objetoJSON);
+                        generarTabla(objetoJSON);
+                    }
+
+                }
+            }
+
+
+///////PARTE TRATAMIENTOS DATOS - DOM
+
+            function numeroPaginas(objeto) {
+                const parrafo = document.createElement("p");
+                let numPagina = objeto.page;
+                let numPaginas = objeto.total_pages;
+                let cadena = `Página ${numPagina} de ${numPaginas}`;
+                
+                parrafo.innerText = cadena;
+                
+                resultado.appendChild(parrafo);
+            }
+            
+
+            function generarTabla(objeto){
+                const tabla = document.createElement("table");
+                generarCabecera();
+                generarCuerpo(objeto);
+            }
+
+            function generarCabecera(){
+                const cabecera = document.createElement("thead");
+                const filaCabecera = document.createElement("tr");
+                const celdasCabecera = "<th>id</th><th>Nombre</th><th>Apellido</th><th>Email</th>";
+                filaCabecera.innerHTML = celdasCabecera;
+                cabecera.appendChild(filaCabecera);
+                resultado.appendChild(cabecera);
+            }
+
+            function generarCuerpo(objeto) {
+                const cuerpo = document.createElement("tbody");
+                const usuarios = objeto.data;
+                
+                for (usuario of usuarios) {
+                    const fila = generarFila(usuario);
+                    cuerpo.appendChild(fila);
+                }
+
+                resultado.appendChild(cuerpo);
+            }
+
+            function generarFila(usuario){
+                const fila = document.createElement("tr");
+                celdaId = usuario.id;
+                celdaNombre = usuario.first_name;
+                celdaApellido  = usuario.last_name;
+                celdaEmail = usuario.email;
+
+                generarCelda(celdaId, fila);
+                generarCelda(celdaNombre, fila);
+                generarCelda(celdaApellido, fila);
+                generarCelda(celdaEmail, fila);
+
+                return fila;
+            }
+
+            function generarCelda(contenido, fila){
+                celda= document.createElement("td");
+                celda.innerText = contenido;
+                fila.appendChild(celda);
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>7R06</title>
+        <style>
+           thead, th, td {
+            padding: 4px;
+            border: 1px solid;
+            border-collapse: collapse;
+           }
+           .error {
+               color: red;
+           }
+           .noerror {
+               color: black;
+           }
+        </style>
+    </head>
+    <body>
+        <h1></h1>Actividad 7R06</h1>
+
+        <ul>
+            <li>Modifica el ejercicio anterior para que la aplicación actúe correctamente si el id especificado no es correcto </li>
+            <li>En dicho caso no debe mostrar la información del usuario sino un mensaje claramente distinguible (en color rojo por ejemplo</li>
+            <li>Observa el comportamiento del servidor antes de implementar la funcionalidad</li>
+        </ul> 
+
+        <hr>
+
+        <br>
+
+        <div id="container">
+            <label for="inputId">Introduce el id del usuario a consultar</label>
+            <input type="number" id="inputId">
+            <button id="botSolicitud">Solicitar usuario</button>
+            <br>
+            <br>
+            <div id="res"></div>
+        </div>
+
+        <script>
+
+            const boton = document.getElementById("botSolicitud");
+            const inputId = document.getElementById("inputId");
+            const resultado = document.getElementById("res");
+
+////PARTE PETICIÓN AJAX
+            inputId.addEventListener("focus", ()=> {
+                inputId.className="noerror";
+                resultado.innerHTML = "";
+                resultado.className = "noerror";
+            });
+
+            boton.addEventListener("click", () => {
+                if (inputId.value != ""){
+                    const id = inputId.value;
+                    peticion(`https://reqres.in/api/users/${id}`);
+                }else {
+                    alert("Debes introducir un id");
+                }
+            });
+
+            const xhr = new XMLHttpRequest;
+
+            function peticion(urlServidor){
+                xhr.open("GET", urlServidor);
+                xhr.onreadystatechange = respuesta;
+                xhr.send();
+            }
+
+            function respuesta(){
+                if(xhr.readyState == 4){
+                    if (xhr.status == 200){
+                        let objetoJSON = JSON.parse(xhr.responseText);
+                        resultado.innerHTML="";
+                        generarTabla(objetoJSON);
+                    } else if(xhr.status == 404) {
+                        inputId.className = "error";
+                        resultado.className = "error";
+                        resultado.innerHTML="El id introducido no es correcto"
+                    } else {
+                        inputId.className = "error";
+                        resultado.className = "error";
+                        resultado.innerHTML="Lo sentimos, ha ocurrido un error"
+                    }
+
+                }
+            }
+
+///////PARTE TRATAMIENTOS DATOS - DOM
+            
+            function generarTabla(objeto){
+                const tabla = document.createElement("table");
+                generarCabecera();
+                generarCuerpo(objeto);
+            }
+
+            function generarCabecera(){
+                const cabecera = document.createElement("thead");
+                const filaCabecera = document.createElement("tr");
+                const celdasCabecera = "<th>id</th><th>Nombre</th><th>Apellido</th><th>Email</th>";
+                filaCabecera.innerHTML = celdasCabecera;
+                cabecera.appendChild(filaCabecera);
+                resultado.appendChild(cabecera);
+            }
+
+            function generarCuerpo(objeto) {
+                const cuerpo = document.createElement("tbody");
+                const usuario = objeto.data;
+                const fila = generarFila(usuario);
+
+                cuerpo.appendChild(fila);
+                resultado.appendChild(cuerpo);
+            }
+
+            function generarFila(usuario){
+                const fila = document.createElement("tr");
+                celdaId = usuario.id;
+                celdaNombre = usuario.first_name;
+                celdaApellido  = usuario.last_name;
+                celdaEmail = usuario.email;
+
+                generarCelda(celdaId, fila);
+                generarCelda(celdaNombre, fila);
+                generarCelda(celdaApellido, fila);
+                generarCelda(celdaEmail, fila);
+
+                return fila;
+            }
+
+            function generarCelda(contenido, fila){
+                celda = document.createElement("td");
+                celda.innerText = contenido;
+                fila.appendChild(celda);
+            }
+        </script>
+    </body>
+</html>

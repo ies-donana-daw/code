@@ -1,0 +1,38 @@
+﻿[
+{
+"title": "HTML Tutorial",
+"url": "http://www.w3schools.com/html/default.asp"
+},
+{
+"title": "CSS Tutorial",
+"url": "http://www.w3schools.com/css/default.asp"
+},
+{
+"title": "JavaScript Tutorial",
+"url": "http://www.w3schools.com/js/default.asp"
+},
+{
+"title": "jQuery Tutorial",
+"url": "http://www.w3schools.com/jquery/default.asp"
+},
+{
+"title": "JSON Tutorial",
+"url": "https://www.w3schools.com/js/js_json_intro.asp"
+},
+{
+"title": "AJAX Tutorial",
+"url": "https://www.w3schools.com/js/js_ajax_intro.asp"
+},
+{
+"title": "SQL Tutorial",
+"url": "http://www.w3schools.com/sql/default.asp"
+},
+{
+"title": "PHP Tutorial",
+"url": "http://www.w3schools.com/php/default.asp"
+},
+{
+"title": "XML Tutorial",
+"url": "http://www.w3schools.com/xml/default.asp"
+}
+]

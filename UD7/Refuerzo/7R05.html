@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>7R05</title>
+        <style>
+           thead, th, td {
+            padding: 4px;
+            border: 1px solid;
+            border-collapse: collapse;
+           }
+        </style>
+    </head>
+    <body>
+        <h1>Actividad 7R05</h1>
+
+        <ul>
+            <li>Añade a la actividad 7A04 (transparencias) un campo de texto de tipo number para que el usuario pueda
+                insertar el id de cuyo usuario desea consultar la información. </li>
+            <li>Crea una página que tenga un botón “Solicitar usuarios” que, al ser pulsado, realice una petición asíncrona a https://
+                reqres.in/api/users/{id} y muestre la información del usuario por pantalla. Supón que el id
+                proporcionado es siempre correcto</li>
+        </ul> 
+
+        <hr>
+
+        <br>
+
+        <div id="container">
+            <label for="inputId">Introduce el id del usuario a consultar</label>
+            <input type="number" id="inputId">
+            <button id="botSolicitud">Solicitar usuario</button>
+            <br>
+            <br>
+            <div id="res"></div>
+        </div>
+
+        <script>
+
+            const boton = document.getElementById("botSolicitud");
+            const inputId = document.getElementById("inputId");
+            const resultado = document.getElementById("res");
+
+////PARTE PETICIÓN AJAX
+            boton.addEventListener("click", () => {
+                const id = inputId.value;
+                peticion(`https://reqres.in/api/users/${id}`);
+            })
+
+            const xhr = new XMLHttpRequest;
+
+            function peticion(urlServidor){
+                xhr.open("GET", urlServidor);
+                xhr.onreadystatechange = respuesta;
+                xhr.send();
+            }
+
+            function respuesta(){
+                if(xhr.readyState == 4 && xhr.status == 200){
+                    let objetoJSON = JSON.parse(xhr.responseText);
+                    resultado.innerHTML="";
+                   // numeroPaginas(objetoJSON);
+                    generarTabla(objetoJSON);
+                }
+            }
+
+///////PARTE TRATAMIENTOS DATOS - DOM
+            
+
+            function generarTabla(objeto){
+                const tabla = document.createElement("table");
+                generarCabecera();
+                generarCuerpo(objeto);
+            }
+
+            function generarCabecera(){
+                const cabecera = document.createElement("thead");
+                const filaCabecera = document.createElement("tr");
+                const celdasCabecera = "<th>id</th><th>Nombre</th><th>Apellido</th><th>Email</th>";
+                filaCabecera.innerHTML = celdasCabecera;
+                cabecera.appendChild(filaCabecera);
+                resultado.appendChild(cabecera);
+            }
+
+            function generarCuerpo(objeto) {
+                const cuerpo = document.createElement("tbody");
+                const usuario = objeto.data;
+                
+                const fila = generarFila(usuario);
+                cuerpo.appendChild(fila);
+
+                resultado.appendChild(cuerpo);
+            }
+
+            function generarFila(usuario){
+                const fila = document.createElement("tr");
+                celdaId = usuario.id;
+                celdaNombre = usuario.first_name;
+                celdaApellido  = usuario.last_name;
+                celdaEmail = usuario.email;
+
+                generarCelda(celdaId, fila);
+                generarCelda(celdaNombre, fila);
+                generarCelda(celdaApellido, fila);
+                generarCelda(celdaEmail, fila);
+
+                return fila;
+            }
+
+            function generarCelda(contenido, fila){
+                celda= document.createElement("td");
+                celda.innerText = contenido;
+                fila.appendChild(celda);
+            }
+        </script>
+    </body>
+</html>
