@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>8A10</title>
+            <script src="./jquery-3.5.1.js"></script>
+        </head>
+        <body>
+            <h1>Ejercicio 10</h1>
+            <p>10. Crear un documento con una tabla. Poner el fondo de las filas pares en
+                rojo (usar el método .css("background-color","red"). A continuación poner el
+                fondo de las filas impares en verde .css("background-color","green")
+            </p>
+        
+            <div>
+                <table > 
+                    <thead>
+                        <tr><th>Columna 1</th><th>Columna 2</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Fila</td><td>Impar</td></tr>
+                        <tr><td>Fila</td><td>Par</td></tr>
+                        <tr><td>Fila</td><td>Impar</td></tr>
+                        <tr><td>Fila</td><td>Par</td></tr>
+                        <tr><td>Fila</td><td>Impar</td></tr>
+                        <tr><td>Fila</td><td>Par</td></tr>
+                        <tr><td>Fila</td><td>Impar</td></tr>
+                        <tr><td>Fila</td><td>Par</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <button id="colorear">Colorear</button>
+
+            
+            <script>
+                $(function(){
+                   
+                    $("#colorear").on("click", function(){
+                        $("tbody tr:odd").css("background-color", "red");
+                        $("tbody tr:even").css("background-color", "green");
+                      //$("tbody tr:odd").addClass("red"); //en la práctica real se suele trabajar asi. Y tener un css con los estilos para la clase red y green
+                    });
+
+                   /* $("thead th").hover(
+                        function(){$(this).css("background-color", "#CCC")},
+                        function(){$(this).css("background-color", "white")}
+                    );*/
+                    $("thead th").on(
+                        {"mouseover": function(){
+                        $(this).css("background-color", "#CCC")
+                        },
+                        "mouseout": function(){
+                        $(this).css("background-color", "white")
+                        }}
+                    );
+                   
+                });
+            </script>
+        </body>
+        </html>
+           

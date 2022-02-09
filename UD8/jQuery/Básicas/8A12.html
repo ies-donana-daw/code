@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>8A12</title>
+            <script src="./jquery-3.5.1.js"></script>
+            <style>
+                .normal {
+                    background-color: antiquewhite;
+                }
+
+                .raton {
+                    background-color: chocolate;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>Ejercicio 12</h1>
+            <p>12. Crear una tabla con dos filas y dos columnas, cambiar el color del interior
+                de la casilla cuando ingresamos con el mouse y regresarla al original cuando
+                salimos.
+            </p>
+
+            <table>
+                <thead><tr><th></th><th>Columna1</th><th>Columna2</th></tr></thead>
+                <tbody>
+                   <tr><th>Fila 1</th><td class="normal"></td><td class="normal"></td></tr>
+                   <tr><th>Fila 2</th><td class="normal"></td><td class="normal"></td></tr>
+                </tbody>
+            </table>
+        
+
+            <script>
+                $(function(){
+                    $(".normal").on({"mouseenter": function(e){
+                            $(this).addClass("raton");
+                        }, "mouseout": function(){
+                            $(this).removeClass("raton");
+                        }
+                    });
+                });
+            </script>
+        </body>
+        </html>

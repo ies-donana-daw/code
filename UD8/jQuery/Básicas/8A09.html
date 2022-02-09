@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>8A09</title>
+            <script src="./jquery-3.5.1.js"></script>
+        </head>
+        <body>
+            <h1>Ejercicio 9</h1>
+            <p>9. Crea un documento con un conjunto de párrafos y div. Haz un ejemplo que utilice:first-child, :first-of-type, :last-child, :last-of-type, :nth-child(n), :nthlast-child(n), :nth-of-type(n), 
+            :nth-last-of-type(n), :only-child, :only-of-type
+            </p>
+        
+            <div>
+                Div1
+                <p>Parrafo 1</p>
+                <p>Parrafo 2</p>
+                <p>Parrafo 3</p>
+            </div>
+
+            <div>
+                Div2
+                <p>Parrafo 1</p>
+                <p>Parrafo 2</p>
+                <p>Parrafo 3</p>
+            </div>
+
+            <div>
+                Div3
+                <p>Parrafo 1</p>
+                <p>Parrafo 2</p>
+                <p>Parrafo 3</p>
+            </div>
+
+            <div>
+                Div4
+                <p>Parrafo 1</p>
+                <p>Parrafo 2</p>
+                <p>Parrafo 3</p>
+            </div>
+         
+            <button id="firstChild">Primeros hijos</button>
+            <button id="firstType">Primeros Elementos</button>
+            <button id="LastChild">Ultimos hijos</button>
+            <button id="lastType">Ultimos Elementos</button>
+            <button id="nthChild">Elemento n-esimo</button>
+
+            <p>Ultimo párrafo</p>
+
+            
+            <script>
+                $(document).ready(function(){
+                    $("#firstChild").click(function(){  
+                       $("p:first-child").hide(1500); //Selecciona todos los elementos <p> que sean primeros hijos de su padre
+                    });
+                    $("#firstType").click(function(){  
+                       $("p:first-of-type").hide(1500); //Selecciona todos los elementos <p> que sean primeros elementos <p> de su padre
+                    });
+                    $("#LastChild").click(function(){  
+                       $("p:last-child").hide(1500); //Selecciona todos los elementos <p> que sean ultimos hijos de su padre
+                    });
+                    $("#lastType").click(function(){  
+                       $("p:last-of-type").hide(1500); //Selecciona todos los elementos <p> que sean ultimos elementos <p> de su padre
+                    });
+                    $("#nthChild").click(function(){  
+                       $("p:nth-child(2)").hide(1500); //Selecciona todos los elementos <p> que sean n-esimos hijos de su padre
+                    });
+                });
+            </script>
+        </body>
+        </html>
+  

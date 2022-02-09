@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./jquery-3.5.1.js"></script>
+    <title>8A15 Ejemplo inicial con jQuery</title>
+    <style>
+        body {
+            background-color: lightcoral;
+            color:lightcyan;
+        }
+
+        h1, h4{
+            text-align: center;
+        }
+
+        form {
+            width:350px;
+            margin:auto;
+            font-size: 1.1rem;
+        }
+
+        #resultados {
+            box-sizing: border-box;
+            background-color:rgb(122, 119, 119);
+            width:350px;
+            margin:auto;
+            padding: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Uso de la etiqueta meter para encuestas</h1>
+    <h4>Hecho con jQuery</h4>
+
+    <form action="">
+        <label>¿Qué sistema operativo móvil te gusta más?</label>
+        <br>
+        <input type="radio" name="so" value=ios>iOS 
+        <br>
+        <input type="radio" name="so" value=android>Android
+        <br>
+        <input type="radio" name="so" value=wp>Window Phone 
+        <br>
+        <input type="radio" name="so" value=otro>Otro 
+        <br>
+        <input type="submit" id="bEnviar" value="Votar!"> 
+    </form>
+
+    <br>
+
+    <div id="resultados">
+        <meter min="0" max="5" value="0" id="ios"></meter>
+        <label>iOS</label>
+        <br>
+        <meter min="0" max="5" value="0" id="android">Android</meter>
+        <label>Android</label>
+        <br>
+        <meter min="0" max="5" value="0" id="wp">Windows Phone</meter>
+        <label>Whindos Phone</label>
+        <br>
+        <meter min="0" max="5" value="0" id="otro">Otros</meter>
+        <label>Otros</label>
+        <br>
+    </div>
+
+    <script>
+            function calculaTotal(){ //Esta función se pone para no introducir una variable global var total=0;
+                let total = 0;
+                for (let i=1; i<4; i++){
+                    total+=$("meter").eq(i).val();
+                    //total+=$($("meter")[i]).val();//Al meter $ ya exige el métdo jQuery val()
+                   //total+=$("meter")[i].value; //Aquí, al no ser ya una selección pura jQuery (por [i]), vale el value
+                }
+                return total;
+            }
+         
+            function votar(event){
+                let opcion = $("input[type='radio']:checked");
+                if (opcion.length==0) {
+                    alert("Selecciona una opción");
+                } else {
+                    let valor = $("#"+opcion.val()).attr("value");
+                    valor++;
+                    $("#"+opcion.val()).attr("value", valor);
+                    
+                    let total = calculaTotal();
+                    total++;
+                    $("meter").attr("max", total);
+                   
+                }
+                event.preventDefault(); //También vale return false;
+            }
+        
+        $(document).ready(function(){
+          $("#bEnviar").click(votar);
+        });
+
+    </script>
+</body>
+</html> 

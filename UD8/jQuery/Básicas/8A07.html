@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8A07</title>
+    <script src="./jquery-3.5.1.js"></script>
+</head>
+<body>
+    <h1>Ejercicio 7</h1>
+    <p>7. Crea un documento con un par de enlaces mediante el atributo href y oculta ambos enlaces.
+    </p>
+
+    <a href="/8A01.html">Ejercicio 1</a>
+
+    <a href="/8A02.html">Ejercicio 2</a>
+    
+    <button>Click</button>
+    
+    <script>
+        $(document).ready(function(){
+            $("button").click(function(){  //Se puede usar el método .on("click", function(event){})
+               $("a").hide(1500);
+            });
+        });
+    </script>
+</body>
+</html>

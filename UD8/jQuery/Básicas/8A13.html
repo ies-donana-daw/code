@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>8A13</title>
+            <script src="./jquery-3.5.1.js"></script>
+            <style>
+                .normal {
+                    background-color: antiquewhite;
+                }
+
+                .foco {
+                    background-color: chocolate;
+                }
+
+            </style>
+        </head>
+        <body>
+            <h1>Ejercicio 13</h1>
+            <p>13. Utiliza los métodos focus() y blur() para cambiar el color de dos cuadros
+                de texto cuando posicionamos el foco y cuando lo retiramos.
+            </p>
+
+           <input type="text" class="normal" placeholder="Cuadro de texto 1">
+           <input type="text" class="normal" placeholder="Cuadro de texto 2">
+        
+
+            <script>
+                $(function(){
+                    $("input").on({
+                        "focus": function(e){
+                            $(this).addClass("foco");
+                        }, 
+                        "blur": function(){
+                            $(this).removeClass("foco");
+                        }
+                    });
+                });
+            </script>
+        </body>
+        </html>

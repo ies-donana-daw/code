@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>8A14</title>
+            <script src="./jquery-3.5.1.js"></script>
+            <style>
+                #elemento1 {
+                    display: inline;
+                    background-color:cornflowerblue;
+                    padding: 5px;
+                    width: 50%;
+                }
+
+                #tip_elemento1 {
+                    background-color: antiquewhite;
+                    position: absolute;
+                    padding: 6px;
+                }
+
+                #animado {
+                    background-color: khaki;
+                    width: 50%;
+                    height: 200px;
+                    position: relative;
+                }
+
+                #miCapa {
+                    background-color: beige;
+                    width: 250px;
+                    height: 250px;
+                    position:relative;
+                }
+
+                #miCapa2 {
+                    background-color: rgb(144, 144, 32);
+                    width: 250px;
+                    height: 250px;
+                    position:relative;
+                }
+
+               
+
+            </style>
+        </head>
+        <body>
+            <h1>Ejercicio 14</h1>
+            <p>14. Crear un tooltip (descripción emergente) básico con los eventos vistos,
+                como el que vemos a continuación:
+            </p>
+
+           <h1>Trabajando con eventos en jQuery</h1>
+            <div id="container">
+                <div id="elemento1">Pasa el ratón por encima de este "elemento1"</div>
+                <br><br>
+                <div id="elemento2">Este texto es para poner <a href="">otro elemento</a></div>
+                <br>
+                <div id="tip_elemento1">Explico mejor este otro elemento con tip</div>
+            </div>
+
+            <div id="animado"></div>
+
+            <br>
+
+            <button id="slide">Slide</button>
+            <button id="animacion">Animación</button>
+            <button id="predefinida">Animación Predefinida</button>
+
+            <br><br>
+
+            <div id="miCapa"></div>
+            <div id="miCapa2"></div>
+            <div></div>
+
+            <br>
+
+            <a href="#" id="enlaceajax">Haz clic!</a>
+            <br>
+            <div id="destino"></div>
+
+
+            <script>
+                
+                
+                function mostrarTooltip(event){
+                    $("#tip_elemento1").css("left", event.pageX + "px")
+                    $("#tip_elemento1").css("top", event.pageY + "px")
+                    $("#tip_elemento1").show(2000);
+                }
+                function ocultarTooltip(){
+                    $("#tip_elemento1").hide(2000);
+                }
+
+                $(function(){
+                    $("#tip_elemento1").hide(2000);
+                    $("#elemento1").hover(mostrarTooltip, ocultarTooltip);
+                    $("#slide").on("click",function(){
+                        $("#container").slideToggle(2000);
+                    })
+                    $("#animacion").click(function(){
+                        $("#animado").animate({
+                            left: "550px",
+                            opacity: "0.5",
+                            height: "150px",
+                            width: "150px"
+                        },2000);
+                    })
+                    $("#predefinido").click(function(){
+                        $("animado").animate({
+                            height: "show"
+                        });
+                    })
+                    $("#miCapa").fadeOut(3000, function() {
+                        $("#miCapa").fadeIn(3000, function(){ 
+                            $("#miCapa").css({"top":300, "left": 200})
+                        });
+                    });
+
+                    $("#miCapa2").css({"top":300, "left": 200}).fadeOut(3000).fadeIn(3000);
+
+                    $(document).ready(function(){
+                        $("#enlaceajax").click(function(evento){
+                        evento.preventDefault();
+                        $("#destino").load("http://localhost/ajax-jquery/contenido-ajax.html");
+                    });
+        })
+                       
+                    
+                });
+            </script>
+        </body>
+        </html>

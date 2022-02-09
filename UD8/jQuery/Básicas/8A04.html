@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8A04</title>
+    <script src="./jquery-3.5.1.js"></script>
+</head>
+<body>
+    <h1 class="intro">Ejercicio 4</h1>
+    <p class="intro">4. Realiza el mismo código que en el script 3 pero ahora selecciona dicho
+        párrafo mediante otro selector.</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam ratione laboriosam assumenda illo itaque quidem, saepe nobis delectus quasi reiciendis placeat ipsum quibusdam molestiae! Obcaecati minus maxime autem necessitatibus incidunt.</p>
+    <button>Click</button>
+    
+    <script>
+        $(document).ready(function(){
+            $("button").click(function(){  //Se puede usar el método .on("click", function(event){})
+               $("p:first").hide(1500);
+               //$($("p")[0]).hide(1500);
+               //$("p").first().hide(1500);
+            });
+        });
+    </script>
+</body>
+</html>

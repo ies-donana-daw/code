@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>8A11</title>
+            <script src="./jquery-3.5.1.js"></script>
+            <style>
+                .miDiv {
+                    width:800px;
+                    height: 70px;
+                    background-color: antiquewhite;
+                }
+
+                .miPequeDiv {
+                    width:250px;
+                    height:250px;
+                    background-color: antiquewhite;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>Ejercicio 11</h1>
+            <p>11. Disponer un div de 800x70 píxeles. Al hacer doble clic redimensionarlo a
+                250x250 píxeles y si se hace doble clic nuevamente retornar al tamaño
+                800x70.
+            </p>
+        
+            <div class="miDiv"> 
+                
+            </div>
+
+            <script>
+                $(function(){
+                    $(".miDiv").on("dblclick", function(e){
+                        console.log("Evento en clase miDiv", this.className);
+                        if(this.className=="miDiv") {
+                            $(this).addClass("miPequeDiv");
+                            $(this).removeClass("miDiv");
+                        }else{
+                            $(this).removeClass("miPequeDiv");
+                            $(this).addClass("miDiv");
+                        }
+                    });
+                });
+            </script>
+        </body>
+        </html>

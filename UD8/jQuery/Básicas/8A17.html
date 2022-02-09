@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8A17</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        table, tbody, tr, td, th {
+            text-align: center;
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 1px;
+            margin:auto;
+        }
+        form {
+            text-align: center;
+            margin:auto;
+        }
+        .sombreado {
+            background-color: grey;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>17 Aplicación con JSON</h1>
+    <p>
+        <ul>
+            <li>               
+                Crea una página web (incluyendo HTML, CSS y javascript) que muestre en
+                una tabla todo el listado de clientes de un negocio. De cada cliente se tienen:
+                nombre, apellido, DNI y cuánto dinero debe.
+            </li>
+            <li>
+                El listado inicial de clientes será de 10 clientes. Genera tú unos datos
+                aleatorios, pero con sentido común, y elige la estructura de datos correcta
+                para almacenarlos.
+            </li>
+            <li>
+               La tabla debe:
+                <ul>
+                    <li>Tener una fila inicial con el nombre de cada columna y que se distingue claramente.</li>
+                    <li>Mostrar un sombreado cuando el usuario pasa por encima de una fila (excepto de la anterior)</li>
+                    <li>Tener una columna extra que muestra una imagen de una cruz. Cuando se pulsa, la fila se elimina</li>
+                </ul>
+            <li>Debajo de la tabla habrá:
+                <ul>
+                    <li>Cuatro campos de texto para añadir información sobre un nuevo cliente.</li>
+                    <li>Un botón que diga “Añadir”.</li>
+                </ul>
+            </li>
+            <li>
+                Cuando el botón “Añadir” se pulse, debe añadirse una nueva fila a la tabla
+                con los datos introducido en los campos de texto.
+            </li>
+        </ul>    
+    </p>
+
+    <hr>
+
+    <div id="container">
+        <table id=tabla>
+            <thead>
+                <tr><th>Nombre</th><th>Apellido</th><th>DNI</th><th>Deuda</th><th>Eliminar</th></tr>
+            </thead>
+            <tbody id="cuerpoTabla"></tbody>
+        </table>
+        <hr>
+        <form action="" id="formulario">
+
+           <p><label for="nombre">Nombre: </label><input type="text" id="nombre" required></p>
+           <p><label for="apellido">Apellido: </label><input type="text" id="apellido" required></p>
+           <p><label for="dni">DNI:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label><input type="text" id="dni" required></p>
+           <p></label for="deuda">Deuda: &nbsp;&nbsp;&nbsp; </label><input type="text" id="deuda" required></p>
+
+           <button type="submit" id="botNuevaFila">Añadir </button>
+
+        
+
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+
+        //Array que contendrá los objetos con los datos de cada cliente
+        let clientes = [
+            {
+                "nombre": "Damián",
+                "apellido": "León",
+                "dni":  "11111111A", 
+                "deuda": "1000"
+            },
+
+            {
+                "nombre": "Laura",
+                "apellido": "Pérez",
+                "dni": "22222222A",
+                "deuda": "2000"
+            },
+            
+            {
+                "nombre": "Pepito",
+                "apellido": "León",
+                "dni": "33333333A",
+                "deuda": "1500"
+            },
+            
+            {
+                "nombre": "Pepe",
+                "apellido": "Sánchez",
+                "dni": "44444444A",
+                "deuda": "1600"
+            },
+            
+            {
+                "nombre": "Manuel",
+                "apellido": "García",
+                "dni": "55555555A",
+                "deuda": "1300"
+            },
+            
+            {
+                "nombre": "Tamara",
+                "apellido": "Fernández",
+                "dni": "66666666A",
+                "deuda": "1100"
+            },
+            
+            {
+                "nombre":"Antonia",
+                "apellido": "Moreno",
+                "dni": "77777777A",
+                "deuda": "1900"
+            },
+            
+            {
+                "nombre": "María",
+                "apellido": "Mendoza",
+                "dni": "88888888A",
+                "deuda": "1400"
+            },
+
+            {
+                "nombre": "Susana",
+                "apellido": "Dorado",
+                "dni": "99999999A",
+                "deuda": "1200"
+            },
+
+            {
+                "nombre":"José", 
+                "apellido": "Gómez",
+                "dni": "00000000A", 
+                "deuda": "1240"
+            }
+        ]
+
+        function sombrearFila(e) {
+            $(this).addClass("sombreado");
+        }
+
+        function quitarSombreado(e) {
+            $(this).removeClass("sombreado");
+        }
+
+        function insertarFila(pos, elem){ //al usar el método con $.each, tiene que tener los parámetros index y elemento
+        let fila = $("<tr></tr>");
+            //Este método también nos sirve con JSON pero probamos con for in por variar
+           /* $.each(elem, function(i, prop){
+                if (typeof prop !== "function"){
+                    let celda = $("<td></td>");
+                    celda.text(prop);
+                    fila.append(celda);
+                }
+            });*/
+            for (key in elem){
+                let celda = $("<td></td>");
+                celda.text(elem[key]);
+                fila.append(celda);
+            }
+            
+            let celda=$("<td>X</td>");
+            celda.css("cursor", "pointer");
+            fila.append(celda);
+
+            //Eliminar fila
+            celda.click(function(){
+                $(this).parent().remove();                
+            });
+
+            //Efecto sombreado fila
+            fila.hover(sombrearFila, quitarSombreado);
+
+            $("#cuerpoTabla").append(fila);
+        }
+
+        //Rellenamos tabla
+        $.each(clientes, insertarFila);
+
+        //Añadir nueva fila
+        $("#botNuevaFila").click(function(e){
+            e.preventDefault(); //para evitar que se recargue la página al pulsar submit, tb se puede poner en form action="javascript:void(0);"
+            let nuevoCliente = {
+                "nombre": $("#nombre").val(),
+                "apellido": $("#apellido").val(),
+                "dni": $("#dni").val(),
+                "deuda": $("#deuda").val()
+            }
+            clientes.push(nuevoCliente);
+            console.log(clientes);
+            insertarFila(null, nuevoCliente);
+        })
+
+        });
+    </script>
+    
+</body>
+</html>

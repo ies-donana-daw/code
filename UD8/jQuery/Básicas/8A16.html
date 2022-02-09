@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <titl8A16</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        table, tbody, tr, td, th {
+            text-align: center;
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 1px;
+            margin:auto;
+        }
+        form {
+            text-align: center;
+            margin:auto;
+        }
+        .sombreado {
+            background-color: grey;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>16. Aplicación con función constructora</h1>
+    <p>
+        <ul>
+            <li>               
+                Crea una página web (incluyendo HTML, CSS y javascript) que muestre en
+                una tabla todo el listado de clientes de un negocio. De cada cliente se tienen:
+                nombre, apellido, DNI y cuánto dinero debe.
+            </li>
+            <li>
+                El listado inicial de clientes será de 10 clientes. Genera tú unos datos
+                aleatorios, pero con sentido común, y elige la estructura de datos correcta
+                para almacenarlos.
+            </li>
+            <li>
+               La tabla debe:
+                <ul>
+                    <li>Tener una fila inicial con el nombre de cada columna y que se distingue claramente.</li>
+                    <li>Mostrar un sombreado cuando el usuario pasa por encima de una fila (excepto de la anterior)</li>
+                    <li>Tener una columna extra que muestra una imagen de una cruz. Cuando se pulsa, la fila se elimina</li>
+                </ul>
+            <li>Debajo de la tabla habrá:
+                <ul>
+                    <li>Cuatro campos de texto para añadir información sobre un nuevo cliente.</li>
+                    <li>Un botón que diga “Añadir”.</li>
+                </ul>
+            </li>
+            <li>
+                Cuando el botón “Añadir” se pulse, debe añadirse una nueva fila a la tabla
+                con los datos introducido en los campos de texto.
+            </li>
+        </ul>    
+    </p>
+
+    <hr>
+
+    <div id="container">
+        <table id=tabla>
+            <thead>
+                <tr><th>Nombre</th><th>Apellido</th><th>DNI</th><th>Deuda</th><th>Eliminar</th></tr>
+            </thead>
+            <tbody id="cuerpoTabla"></tbody>
+        </table>
+        <hr>
+        <form action="" id="formulario">
+
+           <p><label for="nombre">Nombre: </label><input type="text" id="nombre" required></p>
+           <p><label for="apellido">Apellido: </label><input type="text" id="apellido" required></p>
+           <p><label for="dni">DNI:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label><input type="text" id="dni" required></p>
+           <p></label for="deuda">Deuda: &nbsp;&nbsp;&nbsp; </label><input type="text" id="deuda" required></p>
+
+           <button type="submit" id="botNuevaFila">Añadir </button>
+
+        
+
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+
+//Función constructora del objeto con la estructura de datos
+function Cliente (nombre, apellido, dni, deuda) {
+    this.nombre = nombre;
+    this.apellido = apellido;
+    this.dni = dni;
+    this.deuda = deuda;
+}
+
+//Array que contendrá los objetos con los datos de cada cliente
+let clientes = [];
+
+//Creación manual de 10 clientes aleatorios
+clientes.push(new Cliente("Damián", "León", "11111111A", 1000));
+clientes.push(new Cliente("Laura", "Pérez", "22222222A", 2000));
+clientes.push(new Cliente("Pepito", "León", "33333333A", 1500));
+clientes.push(new Cliente("Pepe", "Sánchez", "44444444A", 1600));
+clientes.push(new Cliente("Manuel", "García", "55555555A", 1300));
+clientes.push(new Cliente("Tamara", "Fernández", "66666666A", 1100));
+clientes.push(new Cliente("Antonia", "Moreno", "77777777A", 1900));
+clientes.push(new Cliente("María", "Mendoza", "88888888A", 1400));
+clientes.push(new Cliente("Susana", "Dorado", "99999999A", 1200));
+clientes.push(new Cliente("José", "Gómez", "00000000A", 1240));
+
+function sombrearFila(e) {
+    $(this).addClass("sombreado");
+}
+
+function quitarSombreado(e) {
+    $(this).removeClass("sombreado");
+}
+
+function insertarFila(pos, elem){
+let fila = $("<tr></tr>");
+    $.each(elem, function(i, prop){
+        if (typeof prop !== "function"){
+            let celda = $("<td></td>");
+            celda.text(prop);
+            fila.append(celda);
+        }
+    });
+    let celda=$("<td>X</td>");
+    celda.css("cursor", "pointer");
+    fila.append(celda);
+
+    //Eliminar fila
+    celda.click(function(){
+        $(this).parent().remove();                
+    });
+
+    //Efecto sombreado fila
+    fila.hover(sombrearFila, quitarSombreado);
+
+    $("#cuerpoTabla").append(fila);
+}
+
+//Rellenamos tabla
+$.each(clientes, insertarFila);
+
+//Añadir nueva fila
+$("#botNuevaFila").click(function(e){
+    e.preventDefault(); //para evitar que se recargue la página al pulsar submit, tb se puede poner en form action="javascript:void(0);"
+    let nuevoCliente = new Cliente(
+        $("#nombre").val(),
+        $("#apellido").val(),
+        $("#dni").val(),
+        $("#deuda").val()
+    )
+    clientes.push(nuevoCliente);
+    console.log(clientes);
+    insertarFila(null, nuevoCliente);
+})
+
+});
+    </script>
+    
+</body>
+</html>

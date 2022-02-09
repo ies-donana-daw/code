@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>8A08</title>
+            <script src="./jquery-3.5.1.js"></script>
+        </head>
+        <body>
+            <h1>Ejercicio 8</h1>
+            <p>8. Crea un documento con dos enlaces. Uno se tiene que abrir en una nueva
+                ventana (target="_blank") y el otro no. Debes situar un botón para ocultar el
+                enlace que se abre en una nueva ventana y otro botón para ocultar el que se
+                abre en la misma ventana.
+            </p>
+        
+            <a href="/8A01.html">Ejercicio 1</a>
+            <br>
+            <button id="blank">Click</button>
+
+            <br>
+            
+            <a href="/8A02.html">Ejercicio 2</a>
+            <br>
+            <button id="same">Click</button>
+            
+            <script>
+                $(document).ready(function(){
+                    $("#blank").click(function(){  //Se puede usar el método .on("click", function(event){})
+                       $("a:first").hide(1500);
+                    });
+                    $("#same").click(function(){  //Se puede usar el método .on("click", function(event){})
+                       $($("a")[1]).hide(1500);
+                    });
+                });
+            </script>
+        </body>
+        </html>
+  

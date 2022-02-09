@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8A05</title>
+    <script src="./jquery-3.5.1.js"></script>
+</head>
+<body>
+    <h1 class="intro">Ejercicio 5</h1>
+    <p class="intro">5. Selecciona el tercer elemento de la primera lista y oculta dicho elemento</p>
+    <p>Lista 1</p>
+    <ul>
+        <li>Tortilla</li>
+        <li>Jamón</li>
+        <li>Queso</li>
+    </ul>
+    <p>Lista 2</p>
+    <ul>
+        <li>Coca-cola</li>
+        <li>Leche</li>
+        <li>Té</li>
+    </ul>
+    <button>Click</button>
+    
+    <script>
+        $(document).ready(function(){
+            $("button").click(function(){  //Se puede usar el método .on("click", function(event){})
+               $("ul:first > li:nth-child(3)").hide(1500);
+            });
+        });
+    </script>
+</body>
+</html>
