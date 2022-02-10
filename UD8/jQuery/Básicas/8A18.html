@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8A18</title>
+	<script src="jquery-3.5.1.js"></script>
+    
+    <style>
+    
+        form {
+            text-align: center;
+            margin:auto;
+        }
+        #principal {
+            
+            text-align: center;
+            margin:auto;
+        }
+        .circulo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #5cb85c;
+            margin:10px;
+            display: inline-block;
+        }
+        .pulsado {
+            opacity: 50%;
+        }
+
+    </style>
+
+</head>
+<body>
+    <h1>8A18</h1>
+    <p>
+        <ul>
+            <li>PÁGINA INICIAL
+                <ul>
+                    <li>               
+                        Inicialmente la página presentará un campo de texto y un botón “Crear".
+                    </li>
+                    <li>
+                        Dicho campo de texto tiene una validación para comprobar que contiene un
+                        número del 1 al 5 (el campo es de tipo “text” y la validación es propia, no
+                        Bootstrap o similar).
+                    </li>
+                    <li>
+                        El botón estará inicialmente desactivado y solo se activará cuando la
+                        validación sea correcta. Si el contenido del campo cambia y pasa a ser
+                        incorrecto, el botón cambia su estado de manera acorde
+                    </li>
+                    <li>
+                        Cuando se pulsa el botón “Crear”, se pasa a “una nueva página” descrita a
+                        continuación. La desaparición de estos elementos y la aparición de los
+                        nuevos se hará con un efecto de fundido lento.
+                    </li>
+                    <li style="color: red;">
+                        ¡Estos elementos serán etiquetas introducidas en el HTML de la página!
+                    </li>
+                </ul>
+            </li>
+            <li>PÁGINA PRINCIPAL
+                <ul>
+                    <li>               
+                        En la parte superior habrá un encabezado que muestra el número que se
+                        introdujo en el campo de texto.
+                    </li>
+                    <li>
+                        A continuación un botón “Añadir”.
+                    </li>
+                    <li>
+                        Debajo habrá dispuestos horizontalmente tantos círculos como el número
+                        que fue introducido. Los círculos se forman y colorean mediante CSS.
+                    </li>
+                    <li style="color: red;">
+                        ¡Estos elementos se generarán mediante código javascript y la librería jQuery!
+                    </li>
+                </ul>
+            </li>
+            <li>COMPORTAMIENTO DE AÑADIR
+                <ul>
+                    <li>               
+                        El botón de “Añadir” se desactivará si ya tenemos 5 elementos y se activará
+                        en caso contrario.
+                    </li>
+                    <li>
+                        Cuando se pulsa ocurren dos cosas:
+                        <ul>
+                            <li>Los círculos desaparecen con un efecto slide rápido. A continuación aparecen de nuevo pero
+                                con un círculo más, y esta vez con un efecto slide lento.</li>
+                            <li>Una vez que los círculos han vuelto a aparecer, el contador de la parte superior se
+                                incrementa.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>COMPORTAMIENTO DE CIRCULOS
+                <ul>
+                    <li>               
+                        Cuando el ratón pasa por encima de un círculo, este cambia de color y se
+                        distingue claramente del resto.
+                    </li>
+                    <li>
+                        Si se hace click, el círculo sobre el que se ha hecho click disminuye su opacidad
+                    </li>
+                    <li>
+                        Si se vuelve a hacer click sobre él, ocurre lo mismo que con “Añadir” pero el
+                        caso contrario (se elimina un círculo y se decrementa el contador).
+                    </li>
+                    <li>Si se hace click en otro círculo, se restaura la opacidad del actual y se
+                        disminuye la opacidad del círculo sobre el que se ha hecho click.
+                    </li>
+                    <li>Si solo queda un círculo y se intenta eliminar, no se hace y se informa al
+                        usuario con una alerta
+                    </li>
+                    
+                </ul>
+            </li>
+        </ul> 
+
+    </p>
+
+    <hr>
+
+    <div id="container">
+
+        <div id="inicial">
+
+            <form action="" id="formulario">
+                <p><label for="inputTexto">Campo de texto: </label><input type="text" id="inputTexto"></p>
+                <button type="submit" id="botCrear" disabled>Crear</button>
+            </form>
+
+        </div>
+       
+    </div>
+
+    <script>
+        $(document).ready(function(){
+
+            $("#inputTexto").blur(function(e){
+                if ( ($(this).val()!=="") && (/^[1-5]$/.test($(this).val() )) ){
+                    $("#botCrear").removeAttr("disabled")
+                }else{
+                    alert("Por favor introduce los datos correctamente, debes introducir un número entre 1 y 5");
+                    $(this).val("");
+                    $("#botCrear").attr("disabled", "true")
+                }
+            })
+
+            $("#botCrear").click(function(e){
+                e.preventDefault();
+                crearPrincipal();
+                $("#inicial").fadeOut("slow", function(){
+                    $("#principal").fadeIn("2000", function(){
+                        rellenarPrincipal($("#inputTexto").val());
+                    });
+                });
+                
+            })
+
+            function crearPrincipal(){
+                let divPrincipal = $("<div>");
+                divPrincipal.attr("id", "principal");
+                $("#container").append(divPrincipal);
+            }
+            
+            function crearEncabezado(cantidad){
+                let encabezado = $("<h1>");
+                encabezado.text("La cantidad introducida en el campo de texto es "+ cantidad);
+                return encabezado;
+            }
+
+            function crearAñadir(){
+                let botonAñadir = $("<button>");
+                botonAñadir.attr("id","botAñadir").text("Añadir");
+                return botonAñadir;
+            }
+
+            function crearContenedorCirculos(){
+                let contenedor = $("<div>");
+                contenedor.attr("id", "divCirculos");
+                return contenedor;
+            }
+
+            function crearCirculo(){
+                let circulo = $("<div>");
+                circulo.addClass("circulo");
+                return circulo;
+            }
+
+            function borrarCirculo(){
+                if ($("div.circulo").get().length==1){
+                    alert("No puedes borrar, solo queda un círculo")
+                }else{
+                    if($("div.circulo").get().length==5){
+                        $("#botAñadir").removeAttr("disabled");
+                    }
+                    $("div.pulsado").remove();
+                }
+            }
+
+            function añadirCirculos(cantidad){
+                if ($("div.circulo").get().length == 4 || cantidad == 5) {
+                    
+                    $("#botAñadir").attr("disabled", "true")
+                }
+
+                for (let i=0; i<cantidad; i++){
+
+                    let circulo = crearCirculo();
+
+                    $("#divCirculos").append(circulo);
+
+                    circulo.hover(function(e){
+                        $(e.target).css("background", "grey")
+                        },function(e){
+                        $(e.target).css("background", "#5cb85c")
+                    });
+
+                    circulo.click(function(e){
+                        if($(this).attr("class").includes("pulsado")){
+                            $("#divCirculos").slideUp("fast", function(){
+                                borrarCirculo()
+                            });
+                            
+                            $("#divCirculos").slideDown(1000, function(){
+                                actualizarContador();
+                            });
+                            
+                        }else{
+                            $("div.circulo").removeClass("pulsado");
+                            $(e.target).addClass("pulsado");
+                        }
+                    });
+                }
+            }
+
+            function actualizarContador(){
+                $("#principal h1").text("El número de círculos es "+ $("div.circulo").get().length);
+            }
+
+            function rellenarPrincipal(cantidad){
+                let encabezado = crearEncabezado(cantidad);
+                let botonAñadir = crearAñadir();
+                let contenedorCirculos = crearContenedorCirculos();
+
+                $("#principal").append(encabezado, botonAñadir, contenedorCirculos);
+
+                añadirCirculos(cantidad);
+
+                $("#botAñadir").click(function(){
+                    $("#divCirculos").slideUp("slow", function(){
+                        añadirCirculos(1)
+                    });
+                    $("#divCirculos").slideDown(1000, function(){
+                        actualizarContador();
+                    });
+                    
+                });
+            }
+        });
+
+    </script>
+    
+</body>
+</html>

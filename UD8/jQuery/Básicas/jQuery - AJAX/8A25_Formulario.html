@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8_Formulario</title>
+    <script src="jquery-3.5.1.js"></script>
+    <style>
+        thead, th, td {
+         padding: 4px;
+         border: 1px solid;
+         border-collapse: collapse;
+        }
+     </style>
+</head>
+<body>
+   
+    <h1>UD8 Formularios</h1>
+
+    <ul>
+        <li>Usa el siguiente formulario para obtener un id del servidor mediante una petición asíncrona</li>
+    </ul> 
+
+    <hr>
+
+    <br>
+    <div id="container">
+
+        <form id="formulario">
+            <label for="fname">Nombre:</label><br>
+            <input type="text" id="fname" name="fname" value=""><br>
+            <label for="lname">Apellido:</label><br>
+            <input type="text" id="lname" name="lname" value=""><br><br>
+            <label for="ldni">DNI:</label><br>
+            <input type="text" id="ldni" name="ldni" value=""><br><br>
+            <label for="ldireccion">Dirección:</label><br>
+            <input type="text" id="ldireccion" name="ldireccion" value=""><br><br>
+            <label for="ltelefono">Teléfono:</label><br>
+            <input type="text" id="ltelefono" name="ltelefono" value=""><br><br>
+            <input type="submit" value="Submit">
+        </form> 
+        <div id=resultado></div>
+
+    </div>
+    <script>
+
+debugger;
+
+    $(document).ready(function(){
+    const formulario = $("#formulario");
+    const resultado = $("#resultado");
+
+    formulario.on("submit", (e) =>  {
+        e.preventDefault();
+        peticion("https://reqres.in/api/users");
+    })
+
+    function peticion (urlServidor) {
+        
+        //Obtenemos un stringQuery ("param=valor&param2=valor2") con el metodo serialize, por tanto, los datos se pasaran como contentType: "application/x-www-form-urlencoded"
+        let stringQuery = formulario.serialize();
+        console.log(stringQuery)
+
+        //Si quisieramos pasar los datos como json se pueden usar:
+                    
+        //RECUERDA SI PONES  contentType: "application/json" hay que hacer stringify; si no se pone, se puede pasar el JSON directamente
+
+        //Si lo queremos pasar como FormData el contentType sería: "multipart/form-data", lo que sucede es que la api de este ejercicio solo devuelve el id
+
+
+          /*let nombre = $("#fname").val()
+                    let apellido = $("#lname").val()
+                    let dni = $("#ldni").val
+                    let direccion = $("#ldireccion").val()
+                    let telefono = $("#ltelefono").val()*/
+
+                    /*let datos = {}
+                    datos.first_name = nombre;
+                    datos["first_name"] = nombre;
+                    datos.last_name = apellido
+                    datos.dni = dni
+                    datos.direccion = direccion
+                    datos.telefono = telefono*/
+
+                    /*let datos2 = {
+                        first_name: nombre,
+                        last_name: apellido
+                    }*/
+
+                    // let datos = {}
+                    // let formularioSerializadoArray = $("form").serializeArray()
+                    // for (objetoDatosInput of formularioSerializadoArray) {
+                    //     let nombreInput = objetoDatosInput.name
+                    //     let valorInput = objetoDatosInput.value
+                    //     datos[nombreInput] = valorInput
+                    // }
+
+                    /*let inputs = $("input[type=text]")
+                    for (input of inputs) {
+                        let inputJquery = $(input)
+                        let valorDeInput = inputJquery.val()
+                        let nombreDeInput = inputJquery.attr("id")
+
+                        datos[nombreDeInput] = valorDeInput
+                    }*/
+
+       
+        //$.post(urlServidor,objetoJSON, "json")//Tambien sirve, incluso sin "json". Ojo que la funcion pide los datos en json no en string como $.ajax
+        $.ajax({
+                    type: "POST",
+                    url: urlServidor,
+                    dataType: "json",
+                    contentType: "application/x-www-form-urlencoded",
+                    data: stringQuery
+                  })
+                    .done((data, statusText, response)=>{
+                            console.log(data);
+                            console.log(`Petición correcta, Código Estado: ${response.status}`);
+                            resultado.html(`El código de la respuesta de la petición es ${response.status}: ${statusText}`);
+                            generarTabla(data);
+                    })
+                    .fail((response, statusText, err) => {
+                        console.error(`Fallo Petición, Código Estado: ${response.status}`)
+                    })
+
+                    .always((data_response, statusText, response_err) => console.log(`Estado de la respuesta de la petición: ${statusText}`))
+        
+        }
+
+
+        ///////PARTE TRATAMIENTOS DATOS - DOM
+
+
+            function generarTabla(objeto){
+                const tabla = $("<table>");
+                generarCabecera();
+                generarCuerpo(objeto);
+            }
+
+            function generarCabecera(){
+                const cabecera = $("<thead>");
+                const filaCabecera = $("<tr>");
+                const celdasCabecera = "<th>id</th><th>Nombre</th><th>Apellido</th><th>Email</th>";
+                filaCabecera.html(celdasCabecera);
+                cabecera.append(filaCabecera);
+                resultado.append(cabecera);
+            }
+
+            function generarCuerpo(objeto) {
+                const cuerpo = $("<tbody>");
+                const usuario = objeto;
+                const fila = generarFila(usuario);
+
+                cuerpo.append(fila);
+                resultado.append(cuerpo);
+            }
+
+            function generarFila(usuario){
+                const fila = $("<tr>");
+                celdaId = usuario.id;
+                celdaNombre = usuario.fname;
+                celdaApellido  = usuario.lname;
+                celdaEmail = usuario.ldireccion;
+
+                generarCelda(celdaId, fila);
+                generarCelda(celdaNombre, fila);
+                generarCelda(celdaApellido, fila);
+                generarCelda(celdaEmail, fila);
+
+                return fila;
+            }
+
+            function generarCelda(contenido, fila){
+                celda= $("<td>");
+                celda.text(contenido);
+                fila.append(celda);
+            }
+        })
+        </script>
+    </script>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="jquery-3.5.1.js"></script>
+
+
+        <title>8A06</title>
+        <style>
+           thead, th, td {
+            padding: 4px;
+            border: 1px solid;
+            border-collapse: collapse;
+           }
+           .error {
+               color: red;
+           }
+           .noerror {
+               color: black;
+           }
+        </style>
+    </head>
+    <body>
+        <h1>UD8 Actividad 06</h1>
+
+        <ul>
+            <li>Modifica el ejercicio 5 para que la página actúe correctamente en caso de que el número de página proporcionado no sea siempre correcto</li>
+            <li>En dicho caso no debe mostrar la información de los usuarios. Sino los mensajes claramente distinguibles</li>
+            <li>Observa el comportamiento del servidor antes de implementar la funcionalidad</li>
+        </ul> 
+
+        <hr>
+
+        <br>
+
+        <div id="container">
+            <label for="inputPage">Introduce el número de página que quieres consultar</label>
+            <input type="number" id="inputPage">
+            <button id="botSolicitud">Solicitar página</button>
+            <br>
+            <br>
+            <div id="res"></div>
+        </div>
+
+        <script>
+
+        $(document).ready(function(){
+        
+
+            const boton = $("#botSolicitud");
+            const resultado = $("#res");
+            const inputPage = $("#inputPage");
+
+////PARTE PETICIÓN AJAX
+            boton.on("click", () => {
+                const page = inputPage.val(); 
+                if (page != "" && page != 0 && page != -1) {
+                    peticion(`https://reqres.in/api/users?page=${page}`);
+
+                }else {
+                    alert("Debes introducir un número de página");
+                }
+            });
+
+            function peticion(urlServidor){
+                    //$.get(urlServidor, "json")//Tambien sirve, incluso sin "json". Tambien sirve $.getJSON
+                    $.ajax({
+                        type: "GET",
+                        url: urlServidor,
+                        dataType: "json"
+                      })
+                        .done((data, statusText, response)=>{
+                            console.log(`Petición correcta, Código Estado: ${response.status}`);
+                            if (data.data.length != 0){
+                                resultado.html("");
+                                numeroPaginas(data);
+                                generarTabla(data);
+                            }else{
+                                alert("Debes introducir un número de páginas correcto. Recuerda: Hay un total de "+data.total_pages+" páginas");
+                            }
+                        })
+
+                        .fail((response, statusText, err) => {
+                            inputId.removeClass("noerror");
+                            inputId.addClass("error");
+                            resultado.removeClass("noerror");
+                            resultado.addClass("error");
+                            console.error(`Fallo Petición, Código Estado: ${response.status}`)
+                        })
+
+                        .always((data_response, statusText, response_data) => console.log(`Estado de la respuesta de la petición: ${statusText}`))
+
+            }
+
+
+///////PARTE TRATAMIENTOS DATOS - DOM
+function numeroPaginas(objeto) {
+                const parrafo = $("<p>");
+                let numPagina = objeto.page;
+                let numPaginas = objeto.total_pages;
+                let cadena = `Página ${numPagina} de ${numPaginas}`;
+                
+                parrafo.text(cadena);
+                resultado.append(parrafo);
+            }
+
+            function generarTabla(objeto){
+                const tabla = $("<table>");
+                generarCabecera();
+                generarCuerpo(objeto);
+            }
+
+            function generarCabecera(){
+                const cabecera = $("<thead>");
+                const filaCabecera = $("<tr>");
+                const celdasCabecera = "<th>id</th><th>Nombre</th><th>Apellido</th><th>Email</th>";
+                filaCabecera.html(celdasCabecera);
+                cabecera.append(filaCabecera);
+                resultado.append(cabecera);
+            }
+
+            function generarCuerpo(objeto) {
+                const cuerpo =$("<tbody>");
+                const usuarios = objeto.data;
+                
+                for (usuario of usuarios) {
+                    const fila = generarFila(usuario);
+                    cuerpo.append(fila);
+                }
+
+                resultado.append(cuerpo);
+            }
+
+            function generarFila(usuario){
+                const fila = $("<tr>");
+                celdaId = usuario.id;
+                celdaNombre = usuario.first_name;
+                celdaApellido  = usuario.last_name;
+                celdaEmail = usuario.email;
+
+                generarCelda(celdaId, fila);
+                generarCelda(celdaNombre, fila);
+                generarCelda(celdaApellido, fila);
+                generarCelda(celdaEmail, fila);
+
+                return fila;
+            }
+
+            function generarCelda(contenido, fila){
+                celda= $("<td>");
+                celda.text(contenido);
+                fila.append(celda);
+            }
+        })
+        </script>
+    </body>
+</html>

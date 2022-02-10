@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="jquery-3.5.1.js"></script>
+
+        <title>8A01</title>
+        <style>
+           thead, th, td {
+            padding: 4px;
+            border: 1px solid;
+            border-collapse: collapse;
+           }
+        </style>
+    </head>
+    <body>
+        <h1>UD8 Actividad 01</h1>
+
+        <p>1. Crea una página que tenga un botón “Solicitar usuarios” que, al ser pulsado, solicite unos
+            datos de manera asíncrona a https://reqres.in/api/users y muestre la información por
+            pantalla. Debe mostrar el número total de páginas, la página actual y una tabla que muestra
+            id, nombre, apellido e email de todos los usuarios.
+        </p>
+
+        <hr>
+
+        <br>
+
+        <div id="container">
+            <button id="botSolicitud">Solicitar usuarios</button>
+            <br>
+            <br>
+            <div id="res"></div>
+        </div>
+
+        <script>
+
+            const boton = $("#botSolicitud");
+            const resultado = $("#res");
+
+////PARTE PETICIÓN AJAX
+
+    $(document).ready(function(){
+
+            boton.on("click", () => {
+               peticion("https://reqres.in/api/users");
+            });
+
+            function peticion(urlServidor){
+            //$.get(urlServidor, "json")//Tambien sirve, incluso sin "json". Tambien sirve $.getJSON
+            $.ajax({
+                    type: "GET",
+                    url: urlServidor,
+                    dataType: "json"
+                  })
+                    .done((data, statusText, response)=>{
+                            console.log(`Petición correcta, Código Estado: ${response.status}`);
+                            numeroPaginas(data);
+                            generarTabla(data);
+                    })
+
+                    .fail((response, statusText, err) => {
+                        console.error(`Fallo Petición, Código Estado: ${response.status}`)
+                    })
+
+                    .always((data_response, statusText, response_data) => console.log(`Estado de la respuesta de la petición: ${statusText}`))
+
+            }
+
+///////PARTE TRATAMIENTOS DATOS - DOM
+            
+            function numeroPaginas(objeto) {
+                const parrafo = $("<p>");
+                let numPagina = objeto.page;
+                let numPaginas = objeto.total_pages;
+                let cadena = `Página ${numPagina} de ${numPaginas}`;
+                
+                parrafo.text(cadena);
+                resultado.append(parrafo);
+            }
+
+            function generarTabla(objeto){
+                const tabla = $("<table>");
+                generarCabecera();
+                generarCuerpo(objeto);
+            }
+
+            function generarCabecera(){
+                const cabecera = $("<thead>");
+                const filaCabecera = $("<tr>");
+                const celdasCabecera = "<th>id</th><th>Nombre</th><th>Apellido</th><th>Email</th>";
+                filaCabecera.html(celdasCabecera);
+                cabecera.append(filaCabecera);
+                resultado.append(cabecera);
+            }
+
+            function generarCuerpo(objeto) {
+                const cuerpo =$("<tbody>");
+                const usuarios = objeto.data;
+                
+                for (usuario of usuarios) {
+                    const fila = generarFila(usuario);
+                    cuerpo.append(fila);
+                }
+
+                resultado.append(cuerpo);
+            }
+
+            function generarFila(usuario){
+                const fila = $("<tr>");
+                celdaId = usuario.id;
+                celdaNombre = usuario.first_name;
+                celdaApellido  = usuario.last_name;
+                celdaEmail = usuario.email;
+
+                generarCelda(celdaId, fila);
+                generarCelda(celdaNombre, fila);
+                generarCelda(celdaApellido, fila);
+                generarCelda(celdaEmail, fila);
+
+                return fila;
+            }
+
+            function generarCelda(contenido, fila){
+                celda= $("<td>");
+                celda.text(contenido);
+                fila.append(celda);
+            }
+        })
+    
+        </script>
+    </body>
+</html>

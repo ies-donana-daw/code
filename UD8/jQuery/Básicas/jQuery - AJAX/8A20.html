@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="jquery-3.5.1.js"></script>
+
+
+        <title>8A02</title>
+        <style>
+           thead, th, td {
+            padding: 4px;
+            border: 1px solid;
+            border-collapse: collapse;
+           }
+        </style>
+    </head>
+    <body>
+        <h1>UD8 Actividad 02</h1>
+
+            <ul>
+                <li>Crea una página que tenga dos campos de texto y un botón “Añadir usuario”.</li>
+                <li>Al pulsar el botón, se debe realizar una llamada asíncrona a https://reqres.in/api/users para crear un
+                    nuevo usuario con los datos proporcionados en los campos de texto mediante un JSON.</li>
+                <li>Este JSON debe contener la clave “first_name” y la clave “last_name”.</li>
+                <li>Debe mostrarse la respuesta del servidor cuando se reciba, incluyendo su código de respuesta y los datos del
+                    nuevo usuario (los mismos que se mostraban en la tabla del ejercicio previo) si se reciben</li>
+            </ul>   
+
+        <hr>
+
+        <br>
+
+        <div id="container">
+            <label for="inputNombre">Nombre: </label>
+            <input type="text" id="inputNombre">
+            <br><br>
+            <label for="inputApellido">Apellido: </label>
+            <input type="text" id="inputApellido">
+            &nbsp;     
+            <button id="botAñadir">Añadir usuario</button>
+            <br>
+            <br>
+            <div id="res"></div>
+        </div>
+
+        <script>
+
+        $(document).ready(function(){
+
+            const boton = $("#botAñadir");
+            const resultado = $("#res");
+
+////PARTE PETICIÓN AJAX
+
+            boton.on("click", () => {
+                peticion("https://reqres.in/api/users");
+            });
+
+            function peticion(urlServidor){
+                const inputNombre = $("#inputNombre").val();
+                const inputApellido = $("#inputApellido").val();
+
+                const objetoJSON = {
+                                    "first_name": inputNombre,
+                                    "last_name": inputApellido
+                                    };
+
+                const stringQuery = JSON.stringify(objetoJSON);
+
+               
+
+                //$.post(urlServidor,objetoJSON, "json")//Tambien sirve, incluso sin "json". Ojo que la funcion pide los datos en json no en string como $.ajax
+                $.ajax({
+                    type: "POST",
+                    url: urlServidor,
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: stringQuery
+                  })
+                    .done((data, statusText, response)=>{
+                            console.log(`Petición correcta, Código Estado: ${response.status}`);
+                            resultado.html(`El código de la respuesta de la petición es ${response.status}: ${statusText}`);
+                            generarTabla(data);
+                    })
+                    .fail((response, statusText, err) => {
+                        console.error(`Fallo Petición, Código Estado: ${response.status}`)
+                    })
+
+                    .always((data_response, statusText, response_data) => console.log(`Estado de la respuesta de la petición: ${statusText}`))
+
+
+            }
+
+///////PARTE TRATAMIENTOS DATOS - DOM
+            
+            function generarTabla(objeto){
+                const tabla = $("<table>");
+                cabecera = generarCabecera();
+                generarCuerpo(objeto);
+            }
+
+            function generarCabecera(){
+                const cabecera = $("<thead>");
+                const filaCabecera = $("<tr>");
+                const celdasCabecera = "<th>id</th><th>Nombre</th><th>Apellido</th><th>Email</th>";
+                filaCabecera.html(celdasCabecera);
+                cabecera.append(filaCabecera);
+                resultado.append(cabecera);
+            }
+
+            function generarCuerpo(usuario) {
+                const cuerpo = $("<tbody>");
+                const fila = generarFila(usuario);
+                cuerpo.append(fila);
+                resultado.append(cuerpo);
+            }
+
+            function generarFila(usuario){
+                const fila = $("<tr>");
+                celdaId = usuario.id;
+                celdaNombre = usuario.first_name;
+                celdaApellido  = usuario.last_name;
+                celdaEmail = "";
+
+                generarCelda(celdaId, fila);
+                generarCelda(celdaNombre, fila);
+                generarCelda(celdaApellido, fila);
+                generarCelda(celdaEmail, fila);
+
+                return fila;
+            }
+
+            function generarCelda(contenido, fila){
+                celda= $("<td>");
+                celda.text(contenido);
+                fila.append(celda);
+            }
+        })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="jquery-3.5.1.js"></script>
+
+
+        <title>8A04</title>
+        <style>
+           thead, th, td {
+            padding: 4px;
+            border: 1px solid;
+            border-collapse: collapse;
+           }
+           .error {
+               color: red;
+           }
+           .noerror {
+               color: black;
+           }
+        </style>
+    </head>
+    <body>
+        <h1>UD8 Actividad 04</h1>
+
+        <ul>
+            <li>Modifica el ejercicio anterior para que la aplicación actúe correctamente si el id especificado no es correcto </li>
+            <li>En dicho caso no debe mostrar la información del usuario sino un mensaje claramente distinguible (en color rojo por ejemplo</li>
+            <li>Observa el comportamiento del servidor antes de implementar la funcionalidad</li>
+        </ul> 
+
+        <hr>
+
+        <br>
+
+        <div id="container">
+            <label for="inputId">Introduce el id del usuario a consultar</label>
+            <input type="number" id="inputId">
+            <button id="botSolicitud">Solicitar usuario</button>
+            <br>
+            <br>
+            <div id="res"></div>
+        </div>
+
+        <script>
+        
+        $(document).ready(function(){
+        
+
+            const boton = $("#botSolicitud");
+            const resultado = $("#res");
+            const inputId = $("#inputId");
+
+////PARTE PETICIÓN AJAX
+           
+            inputId.on("focus", ()=> {
+                inputId.removeClass("error");
+                inputId.addClass("noerror");
+                resultado.html("");
+                resultado.removeClass("error");
+                resultado.addClass("noerror");
+            });
+
+            boton.on("click", () => {
+                const id = inputId.val(); 
+                if (id != ""){
+                    peticion(`https://reqres.in/api/users/${id}`);
+                }else {
+                    alert("Debes introducir un id");
+                }
+            });
+            function peticion(urlServidor){
+                    //$.get(urlServidor, "json")//Tambien sirve, incluso sin "json". Tambien sirve $.getJSON
+                    $.ajax({
+                        type: "GET",
+                        url: urlServidor,
+                        dataType: "json"
+                      })
+                        .done((data, statusText, response)=>{
+                           console.log(`Petición correcta, Código Estado: ${response.status}`);
+                            resultado.html("");
+                            generarTabla(data);
+                        })
+
+                        .fail((response, statusText, err) => {
+                            inputId.removeClass("noerror");
+                            inputId.addClass("error");
+                            resultado.removeClass("noerror");
+                            resultado.addClass("error");
+                            
+                            if (response.status == 404){
+                                resultado.html(`Error: ${response.status} -> El id introducido no es correcto`);
+                            }else{
+                                resultado.html(`Error: ${response.status} -> La petición no se ha podido realizar correctamente`);
+                            }
+                            console.error(`Fallo Petición, Código Estado: ${response.status}`)
+                            
+                        })
+
+                        .always((data_response, statusText, response_data) => console.log(`Estado de la respuesta de la petición: ${statusText}`))
+            }
+
+
+
+///////PARTE TRATAMIENTOS DATOS - DOM
+            
+
+            function generarTabla(objeto){
+                const tabla = $("<table>");
+                generarCabecera();
+                generarCuerpo(objeto);
+            }
+
+            function generarCabecera(){
+                const cabecera = $("<thead>");
+                const filaCabecera = $("<tr>");
+                const celdasCabecera = "<th>id</th><th>Nombre</th><th>Apellido</th><th>Email</th>";
+                filaCabecera.html(celdasCabecera);
+                cabecera.append(filaCabecera);
+                resultado.append(cabecera);
+            }
+
+            function generarCuerpo(objeto) {
+                const cuerpo = $("<tbody>");
+                const usuario = objeto.data;
+                const fila = generarFila(usuario);
+
+                cuerpo.append(fila);
+                resultado.append(cuerpo);
+            }
+
+            function generarFila(usuario){
+                const fila = $("<tr>");
+                celdaId = usuario.id;
+                celdaNombre = usuario.first_name;
+                celdaApellido  = usuario.last_name;
+                celdaEmail = usuario.email;
+
+                generarCelda(celdaId, fila);
+                generarCelda(celdaNombre, fila);
+                generarCelda(celdaApellido, fila);
+                generarCelda(celdaEmail, fila);
+
+                return fila;
+            }
+
+            function generarCelda(contenido, fila){
+                celda= $("<td>");
+                celda.text(contenido);
+                fila.append(celda);
+            }
+        })
+        
+        </script>
+    </body>
+</html>
